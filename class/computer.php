@@ -1,0 +1,49 @@
+<?php
+include("../inc/config.php");
+
+ob_start();
+session_start();
+if ( $_SESSION['Oturum'] != 'true' ) { 
+ header("Location:login.php");
+}
+
+## Read value
+$draw = $_POST['draw'];
+
+$empRecords = sqlsrv_query($con, "select * from computers WHERE hide='0'");
+$data = array();
+
+while ($row = sqlsrv_fetch_array($empRecords)) {
+	
+	//$kayit_tarih = date('d-m-Y', strtotime($row["kayit_tarih"]));
+
+	$user_query = sqlsrv_query($con, "select * from employee WHERE id='".$row['users']."'");
+	$user_row = sqlsrv_fetch_array($user_query);	
+	$users = $user_row['name']." ".$user_row['surname'];
+	
+    $data[] = array(
+			"users"=> $users,
+			"device_name"=> $row['device_name'],
+			"brandmodel"=> $row['brand']." ".$row['model'],
+			"sn"=> $row['sn'],
+			"os"=> $row['os'],
+			"office"=> $row['office'],
+			"licence"=> $row['licence'],
+			"ad"=> $row['ad'],
+			"cpuramhdd"=> $row['cpu']." ".$row['ram']." ".$row['hdd'],
+			"ipmac"=> $row['ip']." ".$row['mac'],
+			"location"=> $row['location'],
+			"id"=>$row['id']
+    	);
+		
+$users = "Null";		
+		
+}
+
+## Response
+$response = array(
+    "draw" => intval($draw),
+    "aaData" => $data
+);
+
+echo json_encode($response);
