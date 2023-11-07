@@ -86,7 +86,7 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 
 
 <?php    
-$adim = @$_GET["a"];
+$adim = @$_GET["process"];
 switch($adim){
  
 case "":
@@ -119,36 +119,145 @@ case "":
                         </div>
                     </div>
                 </section>
-		
+				
+<form action="computer.php?process=new" method="post">
+		 <div class="modal fade" id="addNew" tabindex="-1" aria-labelledby="addNewCardTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header bg-transparent">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body px-sm-5 mx-50 pb-5">
+                                <h1 class="text-center mb-1" id="addNewCardTitle">Yeni Kayıt</h1>
+								
+								<div class="row">
+
+									<div class="col-md-6">
+									
+											<label class="form-label" for="Users">Kullanıcı</label>
+											<select data-placeholder="Select a users..." name="users" class="form-select" id="Users">
+											<option value="">Kullanıcı Yok</option>
+											<?php 
+												$departmanet_query = sqlsrv_query($con,"SELECT * FROM employee where hide='0'");
+												while($departmanet_row = sqlsrv_fetch_array($departmanet_query)){
+													echo '<option value="'.$departmanet_row["id"].'">'.$departmanet_row["name"].'</option>';
+												}									
+											?>
+											</select>									
+									
+											<label class="form-label" for="Device_name">Cihaz Adı</label>
+											<input type="text" id="Device_name" class="form-control" name="device_name" placeholder="Device_name" required />
+
+											<label class="form-label" for="Brand">Marka</label>
+											<input type="text" id="Brand" class="form-control" name="brand" placeholder="brand"  />
+
+											<label class="form-label" for="Model">Model</label>
+											<input type="text" id="Model" class="form-control" name="model" placeholder="model"  />
+
+											<label class="form-label" for="Sn">SN</label>
+											<input type="text" id="Sn" class="form-control" name="sn" placeholder="sn"  />
+											
+											<label class="form-label" for="Os">İşletim Sistemi</label>
+											<input type="text" id="Os" class="form-control" name="os" placeholder="os"  />
+
+											<label class="form-label" for="Office">Office</label>
+											<input type="text" id="Office" class="form-control" name="office" placeholder="office"  />
+											
+                                            <label class="form-label" for="Lisans">Lisans</label>
+                                            <select data-placeholder="Select a licence..." name="licence" class="select2-icons form-select" id="Lisans">
+                                                    <option value="0" data-icon="circle">Yok</option>
+                                                    <option value="1" data-icon="circle">Var</option>
+                                            </select>
+											
+                                     </div>
+									 
+									  <div class="col-md-6">
+
+                                            <label class="form-label" for="Antivirus">Antivirüs</label>
+                                            <select data-placeholder="Select a Antivirus..." name="antivirus" class="select2-icons form-select" id="Antivirus">
+                                                    <option value="0" data-icon="circle">Yok</option>
+                                                    <option value="1" data-icon="circle">Var</option>
+                                            </select>
+											
+                                            <label class="form-label" for="Ad">Active Directory</label>
+                                            <select data-placeholder="Select a licence..." name="ad" class="select2-icons form-select" id="Ad">
+                                                    <option value="0" data-icon="circle">Yok</option>
+                                                    <option value="1" data-icon="circle">Var</option>
+                                            </select>											
+											
+											<label class="form-label" for="Cpu">İşlemci</label>
+											<input type="text" id="Cpu" class="form-control" name="cpu" placeholder="Cpu"  />
+											
+											<label class="form-label" for="Ram">Ram</label>
+											<input type="number" id="Ram" class="form-control" name="ram" placeholder="Ram"  />
+
+											<label class="form-label" for="Hdd">Hdd</label>
+											<input type="number" id="Hdd" class="form-control" name="hdd" placeholder="Hdd"  />
+											
+											<label class="form-label" for="Ip">İp</label>
+											<input type="text" id="Ip" class="form-control" name="ip" placeholder="Ip"  />
+
+											<label class="form-label" for="Mac">Mac</label>
+											<input type="text" id="Mac" class="form-control" name="mac" placeholder="mac"  />
+											
+											<label class="form-label" for="Konumu">Konumu</label>
+											<input type="text" id="Konumu" class="form-control" name="location" placeholder="Konumu"  />
+																					
+                                    </div>
+							
+											<div class="mb-1">
+													<label class="form-label" for="Not">Not</label>
+													<textarea name="nots" class="form-control" id="Not" rows="2" placeholder="Not"></textarea>
+											</div>
+							
+								</div>
+	
+                                    <div class="col-12 text-center">
+                                        <button type="submit" class="btn btn-primary me-1 mt-1">Create</button>
+                                        <button type="reset" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal" aria-label="Close">
+                                            Cancel
+                                        </button>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+			</form>		
 <?php
 break;
 	
-case "add": 
+case "new": 
 
-$hash = $_GET["id"];
-$tur  = $_POST['tur'];
-$teslim_alma_tarih = $_POST['teslim_tarih'];
-$vade_tarih = $_POST['vade_tarih'];
-$tutar = $_POST['tutar'];
-$doviz = $_POST['doviz'];
+$users = $_POST['users'];
+$device_name = $_POST['device_name'];
+$brand = $_POST['brand'];
+$model = $_POST['model'];
+$sn = $_POST['sn'];
+$os = $_POST['os'];
+$office = $_POST['office'];
+$licence = $_POST['licence'];
+$antivirus = $_POST['antivirus'];
+$ad = $_POST['ad'];
+$cpu = $_POST['cpu'];
+$ram = $_POST['ram'];
+$hdd = $_POST['hdd'];
+$ip = $_POST['ip'];
+$mac = $_POST['mac'];
+$location = $_POST['location'];
+$nots = str_replace("'", "\'", $_POST['nots']);
 
-if($hash == ""){
-echo '<meta http-equiv="refresh" content="0;URL=firma.php?id='.$hash.'">';
+if($device_name == ""){
+echo '<meta http-equiv="refresh" content="0;URL=computer.php">';
 }else{
-sqlsrv_query($con,"INSERT INTO veri (hash,teslim_alma_tarih,vade_tarih,tur,tutar,doviz) values ('$hash','$teslim_alma_tarih','$vade_tarih','$tur','$tutar','$doviz')");
-echo '<meta http-equiv="refresh" content="0;URL=firma.php?id='.$hash.'">';
+$last_query = sqlsrv_query($con,"INSERT INTO computers (users,device_name,brand,model,sn,os,office,licence,antivirus,ad,cpu,ram,hdd,ip,mac,location,nots) values ('".$users."','".$device_name."','".$brand."','".$model."','".$sn."','".$os."','".$office."','".$licence."','".$antivirus."','".$ad."','".$cpu."','".$ram."','".$hdd."','".$ip."','".$mac."','".$location."','".$nots."')") or die( print_r( sqlsrv_errors(), true));
+sqlsrv_next_result($last_query);
+sqlsrv_fetch($last_query);
+$process_id = sqlsrv_get_field($last_query,0);
+echo '<meta http-equiv="refresh" content="0;URL=computer.php?id='.$process_id.'">';
 }
 
 break;
-case "edit":
 
-$id = $_GET["id"];
-$edit_query = sqlsrv_query($con, "select * computers veri WHERE id='".$id."'");
-$edit_row = sqlsrv_fetch_array($edit_query);
-?>
-				
-<?php
-break;
 case "update":
 
 echo $id = $_POST["id"];
@@ -158,12 +267,12 @@ echo $vade_tarih = $_POST['vade_tarih'];
 echo $tutar = $_POST['tutar'];
 echo $doviz = $_POST['doviz'];
 
-$edit_query1 = sqlsrv_query($con, "select * computers veri WHERE id='".$id."'");
+$edit_query1 = sqlsrv_query($con, "select * computers WHERE id='".$id."'");
 $edit_row1 = sqlsrv_fetch_array($edit_query1);
 
 //sqlsrv_query($con,'UPDATE firma SET  tur="'.$tur.'", teslim_alma_tarih="'.$teslim_alma_tarih.'", vade_tarih="'.$vade_tarih.'", tutar="'.$tutar.'", doviz="'.$doviz.'" where id="'.$id.'" ');
 
-sqlsrv_query($con,"UPDATE veri SET  tur='".$tur."', teslim_alma_tarih='".$teslim_alma_tarih."', vade_tarih='".$vade_tarih."', tutar='".$tutar."', doviz='".$doviz."' where id='".$id."' ");
+sqlsrv_query($con,"UPDATE computers SET  tur='".$tur."', teslim_alma_tarih='".$teslim_alma_tarih."', vade_tarih='".$vade_tarih."', tutar='".$tutar."', doviz='".$doviz."' where id='".$id."' ");
 
 
 echo '<meta http-equiv="refresh" content="0;URL=firma.php?id='.$edit_row1["hash"].'">'; 
@@ -172,7 +281,7 @@ break;
 
 case "delete": 
 $id = $_GET['id'];
-$edit_query1 = sqlsrv_query($con, "select * computers veri WHERE id='".$id."'");
+$edit_query1 = sqlsrv_query($con, "select * computers WHERE id='".$id."'");
 $edit_row1 = sqlsrv_fetch_array($edit_query1);
 echo "Silmek İstiyormuzunuz ? <a href='firma.php?a=delete_onay&id=".$id."'>Onayla</a> -";
 echo " <a href='firma.php?id=".$edit_row1["hash"]."'>İptal</a>";
