@@ -355,9 +355,7 @@ case "":
 			
 <?php
 break;
-	
 case "new": 
-
 $users = $_POST['users'];
 $device_name = $_POST['device_name'];
 $brand = $_POST['brand'];
@@ -375,7 +373,6 @@ $ip = $_POST['ip'];
 $mac = $_POST['mac'];
 $location = $_POST['location'];
 $nots = str_replace("'", "\'", $_POST['nots']);
-
 if($device_name == ""){
 echo '<meta http-equiv="refresh" content="0;URL=computer.php">';
 }else{
@@ -383,31 +380,34 @@ $last_query = sqlsrv_query($con,"INSERT INTO computers (users,device_name,brand,
 sqlsrv_next_result($last_query);
 sqlsrv_fetch($last_query);
 $process_id = sqlsrv_get_field($last_query,0);
+sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','insert')");
 echo '<meta http-equiv="refresh" content="0;URL=computer.php?id='.$process_id.'">';
 }
-
 break;
-
 case "update":
-
-echo $id = $_POST["id"];
-echo $tur = $_POST['tur'];
-echo $teslim_alma_tarih = $_POST['teslim_tarih'];
-echo $vade_tarih = $_POST['vade_tarih'];
-echo $tutar = $_POST['tutar'];
-echo $doviz = $_POST['doviz'];
-
-$edit_query1 = sqlsrv_query($con, "select * computers WHERE id='".$id."'");
-$edit_row1 = sqlsrv_fetch_array($edit_query1);
-
-//sqlsrv_query($con,'UPDATE firma SET  tur="'.$tur.'", teslim_alma_tarih="'.$teslim_alma_tarih.'", vade_tarih="'.$vade_tarih.'", tutar="'.$tutar.'", doviz="'.$doviz.'" where id="'.$id.'" ');
-
-sqlsrv_query($con,"UPDATE computers SET  tur='".$tur."', teslim_alma_tarih='".$teslim_alma_tarih."', vade_tarih='".$vade_tarih."', tutar='".$tutar."', doviz='".$doviz."' where id='".$id."' ");
-
-
-echo '<meta http-equiv="refresh" content="0;URL=computer.php?id='.$edit_row1["hash"].'">'; 
+$id = $_POST["id"];
+$users = $_POST['users'];
+$device_name = $_POST['device_name'];
+$brand = $_POST['brand'];
+$model = $_POST['model'];
+$sn = $_POST['sn'];
+$os = $_POST['os'];
+$office = $_POST['office'];
+$licence = $_POST['licence'];
+$antivirus = $_POST['antivirus'];
+$ad = $_POST['ad'];
+$cpu = $_POST['cpu'];
+$ram = $_POST['ram'];
+$hdd = $_POST['hdd'];
+$ip = $_POST['ip'];
+$mac = $_POST['mac'];
+$location = $_POST['location'];
+$nots = str_replace("'", "\'", $_POST['nots']);
+sqlsrv_query($con,"UPDATE computers SET users='".$users."',device_name='".$device_name."',brand='".$brand."',model='".$model."',sn='".$sn."',os ='".$os ."',office='".$office."',licence='".$licence."',antivirus='".$antivirus."',ad='".$ad."',cpu='".$cpu."',ram='".$ram."',hdd='".$hdd."',ip='".$ip."',mac='".$mac."',location='".$location."',nots='".$nots."' where id='".$id."' ");
+$process_id = $id;
+sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','update')");
+echo '<meta http-equiv="refresh" content="0;URL=computer.php">';
 break;
-
 case "delete": 
 $id = $_POST['id'];
 sqlsrv_query($con,"UPDATE computers SET hide='1' where id='".$id."' ");
@@ -415,9 +415,8 @@ $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','delete')");
 echo '<meta http-equiv="refresh" content="0;URL=computer.php">';
 break;
-
 }
-	?>
+?>
             
                 <!-- Dashboard Ecommerce ends -->
 
@@ -470,12 +469,7 @@ break;
             }
         })
     </script>
-
 <script>
-	
-			 
-		 
-
 	 $(document).ready(function(){  
 	      $(document).on('click', '.edit_modal', function(){  
            var id_data = $(this).attr("id");  
@@ -516,10 +510,8 @@ break;
 		   $('#delete_modal').modal('show'); 
       });
 	  
-	  
 	 });  
 	</script>
-	
 <script>
         $(document).ready(function(){
             var dataTable = $('#empTable').DataTable({

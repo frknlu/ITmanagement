@@ -20,7 +20,11 @@ while ($row = sqlsrv_fetch_array($empRecords)) {
 	$user_query = sqlsrv_query($con, "select * from employee WHERE id='".$row['users']."'");
 	$user_row = sqlsrv_fetch_array($user_query);	
 	$users = $user_row['name']." ".$user_row['surname'];
-	
+
+		  if($row['licence'] == "1"){$licence = "Var"; }else{$licence = "Yok"; }
+		  if($row['ad'] == "1"){$ad = "Var"; }else{$ad = "Yok"; }
+		  if($row['antivirus'] == "1"){$antivirus = "Var"; }else{$antivirus = "Yok"; }
+		  
     $data[] = array(
 			"users"=> $users,
 			"device_name"=> $row['device_name'],
@@ -28,8 +32,8 @@ while ($row = sqlsrv_fetch_array($empRecords)) {
 			"sn"=> $row['sn'],
 			"os"=> $row['os'],
 			"office"=> $row['office'],
-			"licence"=> $row['licence'],
-			"ad"=> $row['ad'],
+			"licence"=> $licence,
+			"ad"=> $ad,
 			"cpuramhdd"=> $row['cpu']." ".$row['ram']." ".$row['hdd'],
 			"ipmac"=> $row['ip']." ".$row['mac'],
 			"location"=> $row['location'],
