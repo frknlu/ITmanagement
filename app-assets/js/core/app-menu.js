@@ -20,11 +20,14 @@
   var menuWrapper_el = $('div[data-menu="menu-wrapper"]').html();
   var menuWrapperClasses = $('div[data-menu="menu-wrapper"]').attr('class');
 
+//$body.removeClass('menu-expanded').addClass('menu-collapsed');
+//$body.removeClass('menu-open menu-expanded').addClass('menu-hide');
+
   // Main menu
   $.app.menu = {
-    expanded: null,
-    collapsed: null,
-    hidden: null,
+    expanded: false,
+    collapsed: true,
+    hidden: true,
     container: null,
     horizontalMenu: false,
 

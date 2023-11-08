@@ -538,13 +538,8 @@ break;
 					{ data: 'location' },
 					{ data: "id" , render : function ( data, type, row, meta ) {
 				return type === 'display'  ? 
-			  '<div class="d-inline-flex">' +
-              '<a class="pe-1 dropdown-toggle hide-arrow text-primary" data-bs-toggle="dropdown" title="Process">' + feather.icons['more-vertical'].toSvg({ class: 'font-small-4' }) + '</a>' +
-              '<div class="dropdown-menu dropdown-menu-end">' +
-              '<a type="button" id="'+ data +'" class="dropdown-item delete-record delete_modal">' + feather.icons['trash-2'].toSvg({ class: 'me-50' }) +
-              'Delete</a>' +
-              '</div>' +
-              '</div> <a type="button" id="'+ data +'" class="item-edit edit_modal" title="Edit">'+ feather.icons['edit'].toSvg({ class: 'me-50' }) +'</a>' + '<a target="_blank" href="print/computers.php?id='+ data +'" class="item-edit" title="Print">'+ feather.icons['printer'].toSvg({ class: 'me-50' }) +'</a>' :
+			  '<a type="button" id="'+ data +'" class="delete-record delete_modal">' + feather.icons['trash-2'].toSvg({ class: 'me-50' }) + 
+			  '</a> <a type="button" id="'+ data +'" class="item-edit edit_modal" title="Edit">'+ feather.icons['edit'].toSvg({ class: 'me-50' }) +'</a>' + '<a target="_blank" href="print/computers.php?id='+ data +'" class="item-edit" title="Print">'+ feather.icons['printer'].toSvg({ class: 'me-50' }) +'</a>' :
                 data;
 				}}
 				],

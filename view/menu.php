@@ -1,4 +1,4 @@
- <div class="main-menu menu-fixed menu-<?php if($_COOKIE['darkmode']=="dark"){ echo "dark"; } else { echo "light"; } ?> menu-accordion menu-shadow" data-scroll-to-active="true">
+<div class="main-menu menu-fixed menu-<?php if($_COOKIE['darkmode']=="dark"){ echo "dark"; } else { echo "light"; } ?> menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item me-auto"><a class="navbar-brand" href="/"><span class="brand-logo">
@@ -35,69 +35,49 @@
 		
 		
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item">
-				
-				<a class="d-flex align-items-center" href="index.php"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Anasayfa">Anasayfa</span></a>
-            
+						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "index")) { echo "active"; } ?> nav-item">
+						<a class="d-flex align-items-center" href="index.php"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Anasayfa">Anasayfa</span></a>
+						</li>
+						
 						<li class=" navigation-header"><span data-i18n="Kullanıcı Yönetimi">Kullanıcı Yönetimi</span><i data-feather="more-horizontal"></i>
 						</li>
 						
-						<li><a class="d-flex align-items-center" href="employee.php"><i data-feather="users"></i><span class="menu-item text-truncate" data-i18n="Kullanıcılar">Kullanıcı</span></a>
+						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "employee")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="employee.php"><i data-feather="users"></i><span class="menu-item text-truncate" data-i18n="Kullanıcılar">Kullanıcı</span></a>
                         </li>
 						
-						<li><a class="d-flex align-items-center" href="department.php"><i data-feather="menu"></i><span class="menu-item text-truncate" data-i18n="Departman">Departman</span></a>
+						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "department")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="department.php"><i data-feather="menu"></i><span class="menu-item text-truncate" data-i18n="Departman">Departman</span></a>
                         </li>
 				
 						<li class=" navigation-header"><span data-i18n="Envanter Yönetimi">Envanter Yönetimi</span><i data-feather="more-horizontal"></i>
 						</li>
 				
-						<li><a class="d-flex align-items-center" href="computer.php"><i data-feather="monitor"></i><span class="menu-item text-truncate" data-i18n="Bilgisayar">Bilgisayar</span></a>
+						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "computer")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="computer.php"><i data-feather="monitor"></i><span class="menu-item text-truncate" data-i18n="Bilgisayar">Bilgisayar</span></a>
                         </li>
 						
-						<li><a class="d-flex align-items-center" href="phone.php"><i data-feather="phone"></i><span class="menu-item text-truncate" data-i18n="Telefonlar">Telefon</span></a>
+						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "phone")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="phone.php"><i data-feather="phone"></i><span class="menu-item text-truncate" data-i18n="Telefonlar">Telefon</span></a>
                         </li>						
 
-						<li><a class="d-flex align-items-center" href="tablet.php"><i data-feather="tablet"></i><span class="menu-item text-truncate" data-i18n="Tablet">Tablet</span></a>
+						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "tablet")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="tablet.php"><i data-feather="tablet"></i><span class="menu-item text-truncate" data-i18n="Tablet">Tablet</span></a>
                         </li>						
 	
-						<li><a class="d-flex align-items-center" href="others.php"><i data-feather="more-horizontal"></i><span class="menu-item text-truncate" data-i18n="Diger Cihazlar">Diğer Cihazlar</span></a>
+						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "others")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="others.php"><i data-feather="more-horizontal"></i><span class="menu-item text-truncate" data-i18n="Diger Cihazlar">Diğer Cihazlar</span></a>
                         </li>
 						
-						<li><a class="d-flex align-items-center" href="printer.php"><i data-feather="printer"></i><span class="menu-item text-truncate" data-i18n="Yazıcılar">Yazıcı</span></a>
+						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "printer")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="printer.php"><i data-feather="printer"></i><span class="menu-item text-truncate" data-i18n="Yazıcılar">Yazıcı</span></a>
                         </li>
 
-						<li><a class="d-flex align-items-center" href="wifi.php"><i data-feather="wifi"></i><span class="menu-item text-truncate" data-i18n="Wireless">Wireless</span></a>
+						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "wifi")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="wifi.php"><i data-feather="wifi"></i><span class="menu-item text-truncate" data-i18n="Wireless">Wireless</span></a>
                         </li>
 
 						<li class=" navigation-header"><span data-i18n="Rapor">Rapor</span><i data-feather="more-horizontal"></i>
 						</li>						
 
-						<li><a class="d-flex align-items-center" href="zimmet.php"><i data-feather="edit-3"></i><span class="menu-item text-truncate" data-i18n="Wireless">Zimmet Raporu</span></a>
+						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "zimmet")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="zimmet.php"><i data-feather="edit-3"></i><span class="menu-item text-truncate" data-i18n="Wireless">Zimmet Raporu</span></a>
                         </li>						
 
-						<li><a class="d-flex align-items-center" href="log.php"><i data-feather="terminal"></i><span class="menu-item text-truncate" data-i18n="Log">Log</span></a>
+						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "log")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="log.php"><i data-feather="terminal"></i><span class="menu-item text-truncate" data-i18n="Log">Log</span></a>
                         </li>							
-                </li>
-          
-             
-                
-               
-          
-             
-               
-               
-        <!--
-                <li class=" navigation-header"><span data-i18n="User Interface">User Interface</span><i data-feather="more-horizontal"></i>
-                </li>
-				
-				
-                <li class=" nav-item"><a class="d-flex align-items-center" href="ui-typography.html"><i data-feather="type"></i><span class="menu-title text-truncate" data-i18n="Typography">Typography</span></a>
-                </li>
-				-->
-             
-               
-               
-
+              
             </ul>
         </div>
     </div>
