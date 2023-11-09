@@ -8,6 +8,8 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 }
 
 
+$authority_page = explode(',', $_COOKIE["authority"]);
+//if (in_array("4", $authority_page)){ }else { header("Location:page-misc-not-authorized.php"); }
 ?>
 <!DOCTYPE html>
 <html class="loading <?php if($_COOKIE['darkmode']=="dark"){ echo "dark-layout"; } else { echo "light-layout"; } ?>" lang="en" data-textdirection="ltr">

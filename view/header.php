@@ -32,7 +32,7 @@
 					
                        
 						
-						<a class="dropdown-item" href=""><i class="me-50" data-feather="settings"></i> Settings</a>
+						<a class="dropdown-item" href="settings_users.php"><i class="me-50" data-feather="settings"></i> Settings</a>
 						
 						 <div class="dropdown-divider"></div>
 						
