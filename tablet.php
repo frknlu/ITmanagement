@@ -20,7 +20,7 @@ if ( $_SESSION['Oturum'] != 'true' ) {
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="FurkanÜnlü">
-    <title>Personel | Danet IT</title>
+    <title>Tablet | Danet IT</title>
     <link rel="apple-touch-icon" href="/app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -28,9 +28,8 @@ if ( $_SESSION['Oturum'] != 'true' ) {
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/vendors.min.css">
 	
-	<link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/pickers/pickadate/pickadate.css">
-	<link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">
-	<link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/forms/select/select2.min.css">
+
+    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">	
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -44,9 +43,6 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="/app-assets/css/core/menu/menu-types/vertical-menu.css">
-	
-	<link rel="stylesheet" type="text/css" href="../../../app-assets/css/plugins/forms/pickers/form-flat-pickr.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/plugins/forms/pickers/form-pickadate.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -104,12 +100,15 @@ case "":
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-											<th>AD</th>
-											<th>SOYAD</th>
-											<th>MAIL</th>
-											<th>TELEFON</th>
-											<th>ÜNVAN</th>
-											<th>DEPARTMAN</th>
+											<th>Kullanıcı</th>
+											<th>SIM</th>
+											<th>Marka</th>
+											<th>Model</th>
+											<th>Renk</th>
+											<th>SN</th>
+											<th>IMEIL</th>
+											<th>Hafıza</th>
+											<th>Not</th>
 											<th>İşlem</th>
                                         </tr>
                                     </thead>
@@ -118,57 +117,74 @@ case "":
                         </div>
                     </div>
                 </section>
-
-<form action="employee.php?process=new" method="post">
+				
+<form action="tablet.php?process=new" method="post">
 		 <div class="modal fade" id="addNew" tabindex="-1" aria-labelledby="addNewCardTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-dialog modal-dialog-centered modal-xl">
                         <div class="modal-content">
                             <div class="modal-header bg-transparent">
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body px-sm-5 mx-50 pb-5">
-                                <h1 class="text-center mb-1" id="addNewCardTitle">Create Persons</h1>
+                                <h1 class="text-center mb-1" id="addNewCardTitle">Yeni Kayıt</h1>
 								
 								<div class="row">
 
 									<div class="col-md-6">
-											<label class="form-label" for="Name">Ad</label>
-											<input type="text" id="Name" class="form-control" name="name" placeholder="Name" required />
+									
+											<label class="form-label" for="Users">Kullanıcı</label>
+											<select data-placeholder="Select a users..." name="users" class="form-select" id="Users">
+											<option value="">Kullanıcı Yok</option>
+											<?php 
+												$departmanet_query = sqlsrv_query($con,"SELECT * FROM employee where hide='0'");
+												while($departmanet_row = sqlsrv_fetch_array($departmanet_query)){
+													echo '<option value="'.$departmanet_row["id"].'">'.$departmanet_row["name"].'</option>';
+												}									
+											?>
+											</select>									
 
-											<label class="form-label" for="Lastname">Soyad</label>
-											<input type="text" id="Surname" class="form-control" name="surname" placeholder="Surname" required />
+											<label class="form-label" for="Brand">Marka</label>
+											<input type="text" id="Brand" class="form-control" name="brand" placeholder="Marka" required />
 
-											<label class="form-label" for="Mail">Mail</label>
-											<input type="mail" id="Mail" class="form-control" name="mail" placeholder="Mail" />
+											<label class="form-label" for="Model">Model</label>
+											<input type="text" id="Model" class="form-control" name="model" placeholder="Model"  />
 
-										   <label class="form-label" for="Telephone">Telephone</label>
-										   <div class="input-group input-group-merge">
-                                             <span class="input-group-text"><i data-feather="smartphone"></i></span>
-                                             <input type="number" id="Telephone" class="form-control" name="telephone" placeholder="Telephone" />
-                                           </div>
-											
+											<label class="form-label" for="Color">Renk</label>
+											<input type="text" id="Color" class="form-control" name="color" placeholder="Renk"  />				
                                      </div>
 									 
 									  <div class="col-md-6">
 
-										<label class="form-label" for="Ünvan">Ünvan</label>
-										<input type="text" id="Ünvan" class="form-control" name="ünvan" placeholder="Ünvan" />									  
+											<label class="form-label" for="Sim">Sim & Data Hattı</label>
+											<select data-placeholder="Select a sim..." name="sim" class="form-select" id="Sim" onChange="simcheck(this);">
+											<option value="">Data & Sim Yok</option>
+											<?php 
+												$sim_query = sqlsrv_query($con,"SELECT * FROM sim where hide='0'");
+												while($sim_row = sqlsrv_fetch_array($sim_query)){
+													echo '<option value="'.$sim_row["id"].'">'.$sim_row["type"].': '.$sim_row["number"].' / '.$sim_row["short_number"].' / '.$sim_row["operator"].'</option>';
+												}									
+											?>
+											</select>
+											
+											<div class="form-label" id="Numara"></div>
 
-										<label class="form-label" for="Departman">Departman</label>
-                                        <select data-placeholder="Select a departman..." name="departman" class="form-select" id="Departman">
-										<?php 
-											$departmanet_query = sqlsrv_query($con,"SELECT * FROM department where hide='0'");
-											while($departmanet_row = sqlsrv_fetch_array($departmanet_query)){
-												echo '<option value="'.$departmanet_row["id"].'">'.$departmanet_row["name"].'</option>';
-											}									
-										?>
-                                        </select>
-										
-                                        <label class="form-label" for="Startdate">Giriş Tarihi</label>
-                                        <input type="date" name="startdate" id="Startdate" for="Startdate" class="form-control" placeholder="YYYY-MM-DD" />
 
+											<label class="form-label" for="Sn">SN</label>
+											<input type="text" id="Sn" class="form-control" name="sn" placeholder="sn"  />
+											
+											<label class="form-label" for="Imeil">İmeil</label>
+											<input type="text" id="Imeil" class="form-control" name="imeil" placeholder="İmeil"  />
+											
+											<label class="form-label" for="Memory">Hafıza</label>
+											<input type="number" id="Memory" class="form-control" name="memory" placeholder="Hafıza"  />
+											
                                     </div>
-									 
+							
+											<div class="mb-1">
+													<label class="form-label" for="Not">Not</label>
+													<textarea name="nots" class="form-control" id="Nots" rows="2" placeholder="Not"></textarea>
+											</div>
+							
 								</div>
 	
                                     <div class="col-12 text-center">
@@ -181,72 +197,94 @@ case "":
                         </div>
                     </div>
                 </div>
-			</form>
-
-		 <form action="employee.php?process=update" method="post">
+			</form>		
+			
+			
+<form action="tablet.php?process=update" method="post">
 		 <div class="modal fade" id="edit_modal" tabindex="-1" aria-labelledby="editmodaltitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-dialog modal-dialog-centered modal-xl">
                         <div class="modal-content">
                             <div class="modal-header bg-transparent">
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body px-sm-5 mx-50 pb-5">
-                                <h1 class="text-center mb-1" id="editmodaltitle">Update Persons</h1>
-                                    <div class="row">
+                                <h1 class="text-center mb-1" id="addNewCardTitle">Update</h1>
+								
+								<div class="row">
 
 									<div class="col-md-6">
-											<label class="form-label" for="name">Ad</label>
-											<input type="text" id="name" class="form-control" name="name" placeholder="Ad" required />
 									
-											<label class="form-label" for="surname">Soyad</label>
-											<input type="text" id="surname" class="form-control" name="surname" placeholder="Soyad" required />
+											<label class="form-label" for="Users">Kullanıcı</label>
+											<select data-placeholder="Select a users..." name="users" class="form-select" id="users">
+											<option value="">Kullanıcı Yok</option>
+											<?php 
+												$departmanet_query = sqlsrv_query($con,"SELECT * FROM employee where hide='0'");
+												while($departmanet_row = sqlsrv_fetch_array($departmanet_query)){
+													echo '<option value="'.$departmanet_row["id"].'">'.$departmanet_row["name"].'</option>';
+												}									
+											?>
+											</select>									
 
-											<label class="form-label" for="mail">Mail</label>
-											<input type="mail" id="mail" class="form-control" name="mail" placeholder="mail" />
+											<label class="form-label" for="Brand">Marka</label>
+											<input type="text" id="brand" class="form-control" name="brand" placeholder="Marka" required />
 
-										   <label class="form-label" for="telephone">Telephone</label>
-										   <div class="input-group input-group-merge">
-                                             <span class="input-group-text"><i data-feather="smartphone"></i></span>
-                                             <input type="number" id="telephone" class="form-control" name="telephone" placeholder="Telephone" />
-                                           </div>
+											<label class="form-label" for="Model">Model</label>
+											<input type="text" id="model" class="form-control" name="model" placeholder="Model"  />
+											
+											<label class="form-label" for="Color">Renk</label>
+											<input type="text" id="color" class="form-control" name="color" placeholder="Renk"  />											
+
 											
                                      </div>
 									 
 									  <div class="col-md-6">
 
-										<label class="form-label" for="unvan">Ünvan</label>
-										<input type="text" id="unvan" class="form-control" name="ünvan" placeholder="Ünvan" />									  
+											<label class="form-label" for="sim">Sim & Data Hattı</label>
+											<select data-placeholder="Select a sim..." name="sim" class="form-select" id="sim" onChange="simcheck2(this);">
+											<option value="">Data & Sim Yok</option>
+											<?php 
+												$sim_query = sqlsrv_query($con,"SELECT * FROM sim where hide='0'");
+												while($sim_row = sqlsrv_fetch_array($sim_query)){
+													echo '<option value="'.$sim_row["id"].'">'.$sim_row["type"].': '.$sim_row["number"].' / '.$sim_row["short_number"].' / '.$sim_row["operator"].'</option>';
+												}									
+											?>
+											</select>
+											
+											<div class="form-label" id="numara"></div>
 
-										<label class="form-label" for="departman">Departman</label>
-                                        <select data-placeholder="Select a departman..." name="departman" class="form-select" id="departman">
-										<?php 
-											$departmanet_query = sqlsrv_query($con,"SELECT * FROM department where hide='0'");
-											while($departmanet_row = sqlsrv_fetch_array($departmanet_query)){
-												echo '<option value="'.$departmanet_row["id"].'">'.$departmanet_row["name"].'</option>';
-											}									
-										?>
-                                        </select>
-										
-                                        <label class="form-label" for="startdate">Giriş Tarihi</label>
-                                        <input type="date" name="startdate" id="startdate" for="startdate" class="form-control" placeholder="YYYY-MM-DD"/>
-								
+											<label class="form-label" for="Sn">SN</label>
+											<input type="text" id="sn" class="form-control" name="sn" placeholder="sn"  />
+											
+											<label class="form-label" for="Imeil">İmeil</label>
+											<input type="text" id="imeil" class="form-control" name="imeil" placeholder="İmeil"  />
+											
+											<label class="form-label" for="Memory">Hafıza</label>
+											<input type="number" id="memory" class="form-control" name="memory" placeholder="Hafıza"  />											
+											
+											
                                     </div>
-									 
+							
+											<div class="mb-1">
+													<label class="form-label" for="Not">Not</label>
+													<textarea name="nots" class="form-control" id="nots" rows="2" placeholder="Not"></textarea>
+											</div>
+							
 								</div>
+	
                                     <div class="col-12 text-center">
                                         <button type="submit" class="btn btn-primary me-1 mt-1">Update</button>
                                         <button type="reset" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal" aria-label="Close">
                                             Cancel
                                         </button>
-                                    </div> 
+                                    </div>
                             </div>
                         </div>
                     </div>
                 </div>
 				<input type="hidden" name="id" id="id" required />
-			</form>
+			</form>				
 			
-		  <form action="employee.php?process=delete" method="post">
+		  <form action="tablet.php?process=delete" method="post">
 			 <div class="modal fade" id="delete_modal" tabindex="-1" aria-labelledby="deletemodaltitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -266,56 +304,63 @@ case "":
                     </div>
                 </div>
 				<input type="hidden" name="id" id="id_delete" required />
-			</form>
-					
+			</form>			
+			
+			
 <?php
 break;
-
 case "new": 
-$name = str_replace("'", "\'", $_POST['name']);
-$surname = str_replace("'", "\'", $_POST['surname']);
-$mail = str_replace("'", "\'", $_POST['mail']);
-$phone = str_replace("'", "\'", $_POST['telephone']);
-$title = str_replace("'", "\'", $_POST['ünvan']);
-$department = str_replace("'", "\'", $_POST['departman']);
-$start_date = $_POST['startdate'];
-if($name == ""){
-echo '<meta http-equiv="refresh" content="0;URL=employee.php">';
+$users = $_POST['users'];
+$number = $_POST['number'];
+$type = $_POST['type'];
+$sim = $_POST['sim'];
+$short_number = $_POST['short_number'];
+$brand = $_POST['brand'];
+$model = $_POST['model'];
+$color = $_POST['color'];
+$sn = $_POST['sn'];
+$imeil = $_POST['imeil'];
+$memory = $_POST['memory'];
+$nots = str_replace("'", "\'", $_POST['nots']);
+if($brand == ""){
+echo '<meta http-equiv="refresh" content="0;URL=tablet.php">';
 }else{
-$last_query = sqlsrv_query($con,"INSERT INTO employee (name,surname,mail,phone,title,department,start_date) values ('".$name."','".$surname."','".$mail."','".$phone."','".$title."','".$department."','".$start_date."')") or die( print_r( sqlsrv_errors(), true));
+$last_query = sqlsrv_query($con,"INSERT INTO tablet (users,number,type,short_number,sim,brand,model,color,sn,imeil,memory,nots) values ('".$users."','".$number."','".$type."','".$short_number."','".$sim."','".$brand."','".$model."','".$color."','".$sn."','".$imeil."','".$memory."','".$nots."')") or die( print_r( sqlsrv_errors(), true));
 sqlsrv_next_result($last_query);
 sqlsrv_fetch($last_query);
 $process_id = sqlsrv_get_field($last_query,0);
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','insert')");
+echo '<meta http-equiv="refresh" content="0;URL=tablet.php?id='.$process_id.'">';
 }
-echo '<meta http-equiv="refresh" content="0;URL=employee.php">';
 break;
-
-case "update": 
-$id = $_POST['id'];
-$name = str_replace("'", "\'", $_POST['name']);
-$surname = str_replace("'", "\'", $_POST['surname']);
-$mail = str_replace("'", "\'", $_POST['mail']);
-$phone = str_replace("'", "\'", $_POST['telephone']);
-$title = str_replace("'", "\'", $_POST['ünvan']);
-$department = str_replace("'", "\'", $_POST['departman']);
-$start_date = $_POST['startdate'];
-sqlsrv_query($con,"UPDATE employee SET name='".$name."',surname='".$surname."',mail='".$mail."',phone='".$phone."',title='".$title."',department='".$department."',start_date='".$start_date."' where id='".$id."' ");
+case "update":
+$id = $_POST["id"];
+$users = $_POST['users'];
+$number = $_POST['number'];
+$type = $_POST['type'];
+$sim = $_POST['sim'];
+$short_number = $_POST['short_number'];
+$brand = $_POST['brand'];
+$model = $_POST['model'];
+$color = $_POST['color'];
+$sn = $_POST['sn'];
+$imeil = $_POST['imeil'];
+$memory = $_POST['memory'];
+$nots = str_replace("'", "\'", $_POST['nots']);
+sqlsrv_query($con,"UPDATE tablet SET users='".$users."',number='".$number."',type='".$type."',short_number='".$short_number."',sim='".$sim."',brand='".$brand."',model ='".$model ."',color='".$color."',sn='".$sn."',imeil='".$imeil."',memory='".$memory."',nots='".$nots."' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','update')");
-echo '<meta http-equiv="refresh" content="0;URL=employee.php">';
+echo '<meta http-equiv="refresh" content="0;URL=tablet.php">';
 break;
-
 case "delete": 
 $id = $_POST['id'];
-sqlsrv_query($con,"UPDATE employee SET hide='1' where id='".$id."' ");
+sqlsrv_query($con,"UPDATE tablet SET hide='1' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','delete')");
-echo '<meta http-equiv="refresh" content="0;URL=employee.php">';
+echo '<meta http-equiv="refresh" content="0;URL=tablet.php">';
 break;
-
 }
-	?>
+?>
             
                 <!-- Dashboard Ecommerce ends -->
 
@@ -336,12 +381,6 @@ break;
 
     <!-- BEGIN: Vendor JS-->
     <script src="/app-assets/vendors/js/vendors.min.js"></script>
-	
-	<script src="../../../app-assets/vendors/js/ui/jquery.sticky.js"></script>
-	<script src="../../../app-assets/vendors/js/pickers/pickadate/picker.js"></script>
-    <script src="../../../app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
-    <script src="../../../app-assets/vendors/js/pickers/pickadate/picker.time.js"></script>
-    <script src="../../../app-assets/vendors/js/pickers/pickadate/legacy.js"></script>
 
     <script src="/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <!-- BEGIN Vendor JS-->
@@ -364,10 +403,6 @@ break;
     <script src="../../../app-assets/vendors/js/tables/datatable/buttons.print.min.js"></script>
     <script src="../../../app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script>
 
-	<script src="../../../app-assets/js/scripts/forms/pickers/form-pickers.js"></script>	
-	<script src="../../../app-assets/vendors/js/forms/select/select2.full.min.js"></script>
-	<script src="../../../app-assets/js/scripts/forms/form-select2.js"></script>
-	
     <script>
         $(window).on('load', function() {
             if (feather) {
@@ -378,32 +413,55 @@ break;
             }
         })
     </script>
+<script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js" integrity="sha512-kHKdovQFIwzs2NABJSo9NgJKZOrRqLPSoqIumoCkaIytTRGgsddo7d0rFyyh8RvYyNNKcMF7C9+4sM7YhMylgg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	function simcheck(val) {
+	var sim = $('#Sim').val();
+	if(sim != null){
+	$.ajax({ // Handling
+		url: "class/phones_sim_check.php",
+                data:{sim:sim},
+                type: "POST", 
+                success:function(data){  
+                     $('#Numara').html(data);
+                } 
+	});	
+	}	
+	}
 
-
-	<script>
+	function simcheck2(val) {
+	var sim = $('#sim').val();
+	if(sim != null){
+	$.ajax({ // Handling
+		url: "class/phones_sim_check.php",
+                data:{sim:sim},
+                type: "POST", 
+                success:function(data){  
+                     $('#numara').html(data);
+                } 
+	});	
+	}	
+	}
 	
-			 
-		 
-
 	 $(document).ready(function(){  
 	      $(document).on('click', '.edit_modal', function(){  
            var id_data = $(this).attr("id");  
            $.ajax({  
-                url:"class/employee_fetch.php",  
+                url:"class/tablet_fetch.php",  
                 method:"POST",  
                 data:{id_data:id_data},  
                 dataType:"json",  
                 success:function(data){  
 					 $('#id').val(data.id);
-                     $('#name').val(data.name);  
-                     $('#surname').val(data.surname);  
-					 $('#mail').val(data.mail);  
-                     $('#telephone').val(data.phone); 
-					 $('#unvan').val(data.title);  
-                     $('#departman').val(data.department); 
-					 $('#startdate').val(data.start_date);
+                     $('#users').val(data.users);  
+					 $('#sim').val(data.sim);
+					  $('#brand').val(data.brand);
+					   $('#model').val(data.model);
+					    $('#color').val(data.color);
+						 $('#sn').val(data.sn);
+						  $('#imeil').val(data.imeil);
+						  $('#memory').val(data.memory);
+						  $('#nots').val(data.nots);
                      $('#edit_modal').modal('show');  
                 }  
            });  
@@ -416,10 +474,8 @@ break;
 		   $('#delete_modal').modal('show'); 
       });
 	  
-	  
 	 });  
 	</script>
-										
 <script>
         $(document).ready(function(){
             var dataTable = $('#empTable').DataTable({
@@ -428,26 +484,62 @@ break;
                 'serverMethod': 'post',
 				"pageLength": 25,
                 'ajax': {
-                    'url':'class/employee.php',
+                    'url':'class/tablet.php',
                 },
 				'order': [[ 0, "desc" ]],
                 'columns': [
 					{ data: 'id' },
-					{ data: 'name' },
-					{ data: 'surname' },
-					{ data: 'mail' },
-					{ data: 'phone' },
-					{ data: 'title' },
-					{ data: 'department' },
-										{ data: "id" , render : function ( data, type, row, meta ) {
+					{ data: 'users' },
+					{ data: 'sim' },
+					{ data: 'brand' },
+					{ data: 'model' },
+					{ data: 'color' },
+					{ data: 'sn' },
+					{ data: 'imeil' },
+					{ data: 'memory' },
+					{ data: 'nots' },
+					{ data: "id" , render : function ( data, type, row, meta ) {
 				return type === 'display'  ? 
-			  '<a type="button" id="'+ data +'" class="delete-record delete_modal">' + feather.icons['trash-2'].toSvg({ class: 'me-50' }) +'</a> <a type="button" id="'+ data +'" class="item-edit edit_modal" title="Edit">'+ feather.icons['edit'].toSvg({ class: 'me-50' }) +'</a>' :
+			  '<a type="button" id="'+ data +'" class="delete-record delete_modal">' + feather.icons['trash-2'].toSvg({ class: 'me-50' }) + 
+			  '</a> <a type="button" id="'+ data +'" class="item-edit edit_modal" title="Edit">'+ feather.icons['edit'].toSvg({ class: 'me-50' }) +'</a>' + '<a target="_blank" href="print/tablet.php?id='+ data +'" class="item-edit" title="Print">'+ feather.icons['printer'].toSvg({ class: 'me-50' }) +'</a>' :
                 data;
 				}}
 				],
 				dom: '<"card-header border-bottom p-1"<"head-label"><"dt-action-buttons text-end"B>><"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
 				buttons: [
-	
+			
+        {
+          extend: 'collection',
+          className: 'btn btn-outline-secondary dropdown-toggle me-2',
+          text: feather.icons['share'].toSvg({ class: 'font-small-4 me-50' }) + 'Export',
+          buttons: [
+            {
+              extend: 'print',
+              text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Print',
+              className: 'dropdown-item',
+              exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+            },
+            {
+              extend: 'excel',
+              text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Excel',
+              className: 'dropdown-item',
+              exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+            },
+            {
+              extend: 'pdf',
+              text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Pdf',
+              className: 'dropdown-item',
+              exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+            }
+          ],
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary');
+            $(node).parent().removeClass('btn-group');
+            setTimeout(function () {
+              $(node).closest('.dt-buttons').removeClass('btn-group').addClass('d-inline-flex');
+            }, 50);
+          }
+        },	
         {
 
           text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Yeni Kayıt',

@@ -59,8 +59,11 @@
 
 						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "tablet")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="tablet.php"><i data-feather="tablet"></i><span class="menu-item text-truncate" data-i18n="Tablet">Tablet</span></a>
                         </li>						
-	
+
 						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "others")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="others.php"><i data-feather="more-horizontal"></i><span class="menu-item text-truncate" data-i18n="Diger Cihazlar">Diğer Cihazlar</span></a>
+                        </li>
+
+						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "sim")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="sim.php"><i data-feather="bar-chart"></i><span class="menu-item text-truncate" data-i18n="Bilgisayar">Data & Ses Hattı</span></a>
                         </li>
 						
 						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "printer")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="printer.php"><i data-feather="printer"></i><span class="menu-item text-truncate" data-i18n="Yazıcılar">Yazıcı</span></a>

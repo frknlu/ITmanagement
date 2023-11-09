@@ -5,7 +5,7 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 }
 if(isset($_POST["id_data"]))  
  {  
-      $query = "SELECT * FROM phones WHERE id='".$_POST["id_data"]."'";
+      $query = "SELECT * FROM tablet WHERE id='".$_POST["id_data"]."'";
       $result = sqlsrv_query($con, $query);  
 	  while ($row = sqlsrv_fetch_array($result)) {
 		$data = array(

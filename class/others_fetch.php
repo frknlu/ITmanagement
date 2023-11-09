@@ -5,14 +5,14 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 }
 if(isset($_POST["id_data"]))  
  {  
-      $query = "SELECT * FROM phones WHERE id='".$_POST["id_data"]."'";
+      $query = "SELECT * FROM others WHERE id='".$_POST["id_data"]."'";
       $result = sqlsrv_query($con, $query);  
 	  while ($row = sqlsrv_fetch_array($result)) {
 		$data = array(
     		"id"=>$row['id'],
     		"users"=>$row['users'],
     		"number"=>$row['number'],
-			"sim"=>$row['sim'],
+			"name"=>$row['name'],
 			"brand"=>$row['brand'],
 			"model"=>$row['model'],
 			"sn"=>$row['sn'],

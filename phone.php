@@ -20,7 +20,7 @@ if ( $_SESSION['Oturum'] != 'true' ) {
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="FurkanÜnlü">
-    <title>Danet IT</title>
+    <title>Telefon | Danet IT</title>
     <link rel="apple-touch-icon" href="/app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -101,9 +101,7 @@ case "":
                                         <tr>
                                             <th>ID</th>
 											<th>Kullanıcı</th>
-											<th>Tel No</th>
-											<th>Tür</th>
-											<th>Kısa Kod</th>
+											<th>SIM</th>
 											<th>Marka</th>
 											<th>Model</th>
 											<th>Renk</th>
@@ -144,33 +142,32 @@ case "":
 												}									
 											?>
 											</select>									
-									
-											<label class="form-label" for="Number">Numara</label>
-											<input type="number" id="Number" class="form-control" name="number" placeholder="Number" required />
-
-                                            <label class="form-label" for="Type">Tür</label>
-                                            <select data-placeholder="Select a Tür..." name="type" class="select2-icons form-select" id="Type">
-                                                    <option value="SES" data-icon="circle">SES</option>
-                                                    <option value="DATA" data-icon="circle">DATA</option>
-                                            </select>
-
-											<label class="form-label" for="Short_number">Kısa Kod</label>
-											<input type="text" id="Short_number" class="form-control" name="short_number" placeholder="Kısa Kod" />
-
 
 											<label class="form-label" for="Brand">Marka</label>
-											<input type="text" id="Brand" class="form-control" name="brand" placeholder="Marka"  />
+											<input type="text" id="Brand" class="form-control" name="brand" placeholder="Marka" required />
 
-											
+											<label class="form-label" for="Model">Model</label>
+											<input type="text" id="Model" class="form-control" name="model" placeholder="Model"  />
+
+											<label class="form-label" for="Color">Renk</label>
+											<input type="text" id="Color" class="form-control" name="color" placeholder="Renk"  />				
                                      </div>
 									 
 									  <div class="col-md-6">
 
-											<label class="form-label" for="Model">Model</label>
-											<input type="text" id="Model" class="form-control" name="model" placeholder="Model"  />
+											<label class="form-label" for="Sim">Sim & Data Hattı</label>
+											<select data-placeholder="Select a sim..." name="sim" class="form-select" id="Sim" onChange="simcheck(this);">
+											<option value="">Data & Sim Yok</option>
+											<?php 
+												$sim_query = sqlsrv_query($con,"SELECT * FROM sim where hide='0'");
+												while($sim_row = sqlsrv_fetch_array($sim_query)){
+													echo '<option value="'.$sim_row["id"].'">'.$sim_row["type"].': '.$sim_row["number"].' / '.$sim_row["short_number"].' / '.$sim_row["operator"].'</option>';
+												}									
+											?>
+											</select>
 											
-											<label class="form-label" for="Color">Renk</label>
-											<input type="text" id="Color" class="form-control" name="color" placeholder="Renk"  />
+											<div class="form-label" id="Numara"></div>
+
 
 											<label class="form-label" for="Sn">SN</label>
 											<input type="text" id="Sn" class="form-control" name="sn" placeholder="sn"  />
@@ -180,7 +177,7 @@ case "":
 											
 											<label class="form-label" for="Memory">Hafıza</label>
 											<input type="number" id="Memory" class="form-control" name="memory" placeholder="Hafıza"  />
-																					
+											
                                     </div>
 							
 											<div class="mb-1">
@@ -227,33 +224,33 @@ case "":
 												}									
 											?>
 											</select>									
-									
-											<label class="form-label" for="Number">Numara</label>
-											<input type="number" id="number" class="form-control" name="number" placeholder="Number" required />
-
-                                            <label class="form-label" for="Type">Tür</label>
-                                            <select data-placeholder="Select a Tür..." name="type" class="select2-icons form-select" id="type">
-                                                    <option value="SES" data-icon="circle">SES</option>
-                                                    <option value="DATA" data-icon="circle">DATA</option>
-                                            </select>
-
-											<label class="form-label" for="short_number">Kısa Kod</label>
-											<input type="text" id="short_number" class="form-control" name="short_number" placeholder="Kısa Kod" />
-
 
 											<label class="form-label" for="Brand">Marka</label>
-											<input type="text" id="brand" class="form-control" name="brand" placeholder="Marka"  />
+											<input type="text" id="brand" class="form-control" name="brand" placeholder="Marka" required />
+
+											<label class="form-label" for="Model">Model</label>
+											<input type="text" id="model" class="form-control" name="model" placeholder="Model"  />
+											
+											<label class="form-label" for="Color">Renk</label>
+											<input type="text" id="color" class="form-control" name="color" placeholder="Renk"  />											
 
 											
                                      </div>
 									 
 									  <div class="col-md-6">
 
-											<label class="form-label" for="Model">Model</label>
-											<input type="text" id="model" class="form-control" name="model" placeholder="Model"  />
+											<label class="form-label" for="sim">Sim & Data Hattı</label>
+											<select data-placeholder="Select a sim..." name="sim" class="form-select" id="sim" onChange="simcheck2(this);">
+											<option value="">Data & Sim Yok</option>
+											<?php 
+												$sim_query = sqlsrv_query($con,"SELECT * FROM sim where hide='0'");
+												while($sim_row = sqlsrv_fetch_array($sim_query)){
+													echo '<option value="'.$sim_row["id"].'">'.$sim_row["type"].': '.$sim_row["number"].' / '.$sim_row["short_number"].' / '.$sim_row["operator"].'</option>';
+												}									
+											?>
+											</select>
 											
-											<label class="form-label" for="Color">Renk</label>
-											<input type="text" id="color" class="form-control" name="color" placeholder="Renk"  />
+											<div class="form-label" id="numara"></div>
 
 											<label class="form-label" for="Sn">SN</label>
 											<input type="text" id="sn" class="form-control" name="sn" placeholder="sn"  />
@@ -262,8 +259,9 @@ case "":
 											<input type="text" id="imeil" class="form-control" name="imeil" placeholder="İmeil"  />
 											
 											<label class="form-label" for="Memory">Hafıza</label>
-											<input type="number" id="memory" class="form-control" name="memory" placeholder="Hafıza"  />
-																					
+											<input type="number" id="memory" class="form-control" name="memory" placeholder="Hafıza"  />											
+											
+											
                                     </div>
 							
 											<div class="mb-1">
@@ -315,6 +313,7 @@ case "new":
 $users = $_POST['users'];
 $number = $_POST['number'];
 $type = $_POST['type'];
+$sim = $_POST['sim'];
 $short_number = $_POST['short_number'];
 $brand = $_POST['brand'];
 $model = $_POST['model'];
@@ -323,10 +322,10 @@ $sn = $_POST['sn'];
 $imeil = $_POST['imeil'];
 $memory = $_POST['memory'];
 $nots = str_replace("'", "\'", $_POST['nots']);
-if($number == ""){
+if($brand == ""){
 echo '<meta http-equiv="refresh" content="0;URL=phone.php">';
 }else{
-$last_query = sqlsrv_query($con,"INSERT INTO phones (users,number,type,short_number,brand,model,color,sn,imeil,memory,nots) values ('".$users."','".$number."','".$type."','".$short_number."','".$brand."','".$model."','".$color."','".$sn."','".$imeil."','".$memory."','".$nots."')") or die( print_r( sqlsrv_errors(), true));
+$last_query = sqlsrv_query($con,"INSERT INTO phones (users,number,type,short_number,sim,brand,model,color,sn,imeil,memory,nots) values ('".$users."','".$number."','".$type."','".$short_number."','".$sim."','".$brand."','".$model."','".$color."','".$sn."','".$imeil."','".$memory."','".$nots."')") or die( print_r( sqlsrv_errors(), true));
 sqlsrv_next_result($last_query);
 sqlsrv_fetch($last_query);
 $process_id = sqlsrv_get_field($last_query,0);
@@ -339,6 +338,7 @@ $id = $_POST["id"];
 $users = $_POST['users'];
 $number = $_POST['number'];
 $type = $_POST['type'];
+$sim = $_POST['sim'];
 $short_number = $_POST['short_number'];
 $brand = $_POST['brand'];
 $model = $_POST['model'];
@@ -347,7 +347,7 @@ $sn = $_POST['sn'];
 $imeil = $_POST['imeil'];
 $memory = $_POST['memory'];
 $nots = str_replace("'", "\'", $_POST['nots']);
-sqlsrv_query($con,"UPDATE phones SET users='".$users."',number='".$number."',type='".$type."',short_number='".$short_number."',brand='".$brand."',model ='".$model ."',color='".$color."',sn='".$sn."',imeil='".$imeil."',memory='".$memory."',nots='".$nots."' where id='".$id."' ");
+sqlsrv_query($con,"UPDATE phones SET users='".$users."',number='".$number."',type='".$type."',short_number='".$short_number."',sim='".$sim."',brand='".$brand."',model ='".$model ."',color='".$color."',sn='".$sn."',imeil='".$imeil."',memory='".$memory."',nots='".$nots."' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','update')");
 echo '<meta http-equiv="refresh" content="0;URL=phone.php">';
@@ -414,6 +414,35 @@ break;
         })
     </script>
 <script>
+
+	function simcheck(val) {
+	var sim = $('#Sim').val();
+	if(sim != null){
+	$.ajax({ // Handling
+		url: "class/phones_sim_check.php",
+                data:{sim:sim},
+                type: "POST", 
+                success:function(data){  
+                     $('#Numara').html(data);
+                } 
+	});	
+	}	
+	}
+
+	function simcheck2(val) {
+	var sim = $('#sim').val();
+	if(sim != null){
+	$.ajax({ // Handling
+		url: "class/phones_sim_check.php",
+                data:{sim:sim},
+                type: "POST", 
+                success:function(data){  
+                     $('#numara').html(data);
+                } 
+	});	
+	}	
+	}
+	
 	 $(document).ready(function(){  
 	      $(document).on('click', '.edit_modal', function(){  
            var id_data = $(this).attr("id");  
@@ -425,9 +454,7 @@ break;
                 success:function(data){  
 					 $('#id').val(data.id);
                      $('#users').val(data.users);  
-					 $('#number').val(data.number);
-					 $('#type').val(data.type);
-					 $('#short_number').val(data.short_number);
+					 $('#sim').val(data.sim);
 					  $('#brand').val(data.brand);
 					   $('#model').val(data.model);
 					    $('#color').val(data.color);
@@ -463,9 +490,7 @@ break;
                 'columns': [
 					{ data: 'id' },
 					{ data: 'users' },
-					{ data: 'number' },
-					{ data: 'type' },
-					{ data: 'short_number' },
+					{ data: 'sim' },
 					{ data: 'brand' },
 					{ data: 'model' },
 					{ data: 'color' },
@@ -482,7 +507,39 @@ break;
 				],
 				dom: '<"card-header border-bottom p-1"<"head-label"><"dt-action-buttons text-end"B>><"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
 				buttons: [
-	
+			
+        {
+          extend: 'collection',
+          className: 'btn btn-outline-secondary dropdown-toggle me-2',
+          text: feather.icons['share'].toSvg({ class: 'font-small-4 me-50' }) + 'Export',
+          buttons: [
+            {
+              extend: 'print',
+              text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Print',
+              className: 'dropdown-item',
+              exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+            },
+            {
+              extend: 'excel',
+              text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Excel',
+              className: 'dropdown-item',
+              exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+            },
+            {
+              extend: 'pdf',
+              text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Pdf',
+              className: 'dropdown-item',
+              exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9] }
+            }
+          ],
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary');
+            $(node).parent().removeClass('btn-group');
+            setTimeout(function () {
+              $(node).closest('.dt-buttons').removeClass('btn-group').addClass('d-inline-flex');
+            }, 50);
+          }
+        },	
         {
 
           text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Yeni Kayıt',

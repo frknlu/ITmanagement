@@ -5,22 +5,21 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 }
 if(isset($_POST["id_data"]))  
  {  
-      $query = "SELECT * FROM phones WHERE id='".$_POST["id_data"]."'";
+      $query = "SELECT * FROM printers WHERE id='".$_POST["id_data"]."'";
       $result = sqlsrv_query($con, $query);  
 	  while ($row = sqlsrv_fetch_array($result)) {
 		$data = array(
     		"id"=>$row['id'],
     		"users"=>$row['users'],
-    		"number"=>$row['number'],
-			"sim"=>$row['sim'],
+    		"device_name"=>$row['device_name'],
 			"brand"=>$row['brand'],
 			"model"=>$row['model'],
 			"sn"=>$row['sn'],
-			"type"=>$row['type'],
-			"short_number"=>$row['short_number'],
-			"color"=>$row['color'],
-			"imeil"=>$row['imeil'],
-			"memory"=>$row['memory'],
+			"ip"=>$row['ip'],
+			"mac"=>$row['mac'],
+			"place"=>$row['place'],
+			"toner"=>$row['toner'],
+			"toner_q"=>$row['toner_q'],
 			"nots"=>$row['nots']
     	);
 	}

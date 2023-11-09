@@ -10,7 +10,7 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 ## Read value
 $draw = $_POST['draw'];
 
-$empRecords = sqlsrv_query($con, "select * from phones WHERE hide='0'");
+$empRecords = sqlsrv_query($con, "select * from others WHERE hide='0'");
 $data = array();
 
 while ($row = sqlsrv_fetch_array($empRecords)) {
@@ -20,20 +20,13 @@ while ($row = sqlsrv_fetch_array($empRecords)) {
 	$user_query = sqlsrv_query($con, "select * from employee WHERE id='".$row['users']."'");
 	$user_row = sqlsrv_fetch_array($user_query);	
 	$users = $user_row['name']." ".$user_row['surname'];
-
-	$sim_query = sqlsrv_query($con,"SELECT * FROM sim where id='".$row['sim']."'");
-	$sim_row = sqlsrv_fetch_array($sim_query);
-	if($sim_row == ""){ $sim = ""; }
-	else{
-		$sim = '<option value="'.$sim_row["id"].'">'.$sim_row["type"].': '.$sim_row["number"].' / '.$sim_row["short_number"].' / '.$sim_row["operator"].'</option>';
-	}
 									
     $data[] = array(
     		"id"=>$row['id'],
     		"users"=>$users,
     		"number"=>$row['number'],
 			"brand"=>$row['brand'],
-			"sim"=>$sim,
+			"name"=>$row['name'],
 			"model"=>$row['model'],
 			"sn"=>$row['sn'],
 			"type"=>$row['type'],

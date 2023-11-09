@@ -10,7 +10,7 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 ## Read value
 $draw = $_POST['draw'];
 
-$empRecords = sqlsrv_query($con, "select * from phones WHERE hide='0'");
+$empRecords = sqlsrv_query($con, "select * from tablet WHERE hide='0'");
 $data = array();
 
 while ($row = sqlsrv_fetch_array($empRecords)) {
