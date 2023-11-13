@@ -113,6 +113,7 @@ case "":
 											<th>İşlemci / Ram / Hdd</th>
 											<th>IP / MAC</th>
 											<th>Lokasyon</th>
+											<th>Not</th>
 											<th>İşlem</th>
                                         </tr>
                                     </thead>
@@ -378,7 +379,7 @@ $nots = str_replace("'", "\'", $_POST['nots']);
 if($device_name == ""){
 echo '<meta http-equiv="refresh" content="0;URL=computer.php">';
 }else{
-$last_query = sqlsrv_query($con,"INSERT INTO computers (users,device_name,brand,model,sn,os,office,licence,antivirus,ad,cpu,ram,hdd,ip,mac,location,nots) values ('".$users."','".$device_name."','".$brand."','".$model."','".$sn."','".$os."','".$office."','".$licence."','".$antivirus."','".$ad."','".$cpu."','".$ram."','".$hdd."','".$ip."','".$mac."','".$location."','".$nots."')") or die( print_r( sqlsrv_errors(), true));
+$last_query = sqlsrv_query($con,"INSERT INTO inventory (users,device_name,brand,model,sn,os,office,licence,antivirus,ad,cpu,ram,hdd,ip,mac,location,nots,data_type) values ('".$users."','".$device_name."','".$brand."','".$model."','".$sn."','".$os."','".$office."','".$licence."','".$antivirus."','".$ad."','".$cpu."','".$ram."','".$hdd."','".$ip."','".$mac."','".$location."','".$nots."','1')") or die( print_r( sqlsrv_errors(), true));
 sqlsrv_next_result($last_query);
 sqlsrv_fetch($last_query);
 $process_id = sqlsrv_get_field($last_query,0);
@@ -405,14 +406,14 @@ $ip = $_POST['ip'];
 $mac = $_POST['mac'];
 $location = $_POST['location'];
 $nots = str_replace("'", "\'", $_POST['nots']);
-sqlsrv_query($con,"UPDATE computers SET users='".$users."',device_name='".$device_name."',brand='".$brand."',model='".$model."',sn='".$sn."',os ='".$os ."',office='".$office."',licence='".$licence."',antivirus='".$antivirus."',ad='".$ad."',cpu='".$cpu."',ram='".$ram."',hdd='".$hdd."',ip='".$ip."',mac='".$mac."',location='".$location."',nots='".$nots."' where id='".$id."' ");
+sqlsrv_query($con,"UPDATE inventory SET users='".$users."',device_name='".$device_name."',brand='".$brand."',model='".$model."',sn='".$sn."',os ='".$os ."',office='".$office."',licence='".$licence."',antivirus='".$antivirus."',ad='".$ad."',cpu='".$cpu."',ram='".$ram."',hdd='".$hdd."',ip='".$ip."',mac='".$mac."',location='".$location."',nots='".$nots."' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','update')");
 echo '<meta http-equiv="refresh" content="0;URL=computer.php">';
 break;
 case "delete": 
 $id = $_POST['id'];
-sqlsrv_query($con,"UPDATE computers SET hide='1' where id='".$id."' ");
+sqlsrv_query($con,"UPDATE inventory SET hide='1' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','delete')");
 echo '<meta http-equiv="refresh" content="0;URL=computer.php">';
@@ -538,6 +539,7 @@ break;
 					{ data: 'cpuramhdd' },
 					{ data: 'ipmac' },
 					{ data: 'location' },
+					{ data: 'nots' },
 					{ data: "id" , render : function ( data, type, row, meta ) {
 				return type === 'display'  ? 
 			  '<a type="button" id="'+ data +'" class="delete-record delete_modal">' + feather.icons['trash-2'].toSvg({ class: 'me-50' }) + 

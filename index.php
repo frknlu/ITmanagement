@@ -26,12 +26,9 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/vendors.min.css">
+	<link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/charts/apexcharts.css">
 	
- <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css">
-    <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+ 
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -45,12 +42,18 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="/app-assets/css/core/menu/menu-types/vertical-menu.css">
+	
+	<link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/charts/chart-apex.min.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
     <!-- END: Custom CSS-->
+	
+	
+    
 
+	
 </head>
 <!-- END: Head-->
 
@@ -77,97 +80,281 @@ if ( $_SESSION['Oturum'] != 'true' ) {
             <div class="content-body">
                 <!-- Dashboard Ecommerce Starts -->
 
-<?php
-$adim = @$_GET["a"];
-switch($adim){
-case "":	
-?>
-        
-
-				
-				
-<?php
-break;
-case "new": 
-$firma = str_replace("'", "\'", $_POST['firma']);
-
-if($firma == ""){
-echo '<meta http-equiv="refresh" content="0;URL=index.php">';
-}else{
-sqlsrv_query($con,"INSERT INTO firma (firma) values ('$firma')");
-}
-echo '<meta http-equiv="refresh" content="0;URL=index.php">';
-break;
 
 
-case "update": 
 
-$id = $_GET["id"];
-$edit_query = sqlsrv_query($con, "select * from firma WHERE id='".$id."'");
-$edit_row = sqlsrv_fetch_assoc($edit_query);
-?>
+<section id="statistics-card">
+  <!-- Miscellaneous Charts -->
+  <div class="row match-height">
+    <!-- Bar Chart -Orders -->
+    <div class="col-lg-2 col-6">
+      <div class="card">
+        <div class="card-body pb-50">
+          <h6>Kullanıcı</h6>
+          <h2 class="fw-bolder mb-1">-</h2>
+          <div id="statistics-bar-chart"></div>
+        </div>
+      </div>
+    </div>
+    <!--/ Bar Chart -->
 
-<div class="row">
-                    <div class="col-12">
-					<div class="clearfix"> 		
-					<a onclick="history.back();"><button type="button" class="btn btn-warning"><i class="fa fa-undo"></i> Geri Dön </button></a>
-							</div>
-				     </div>
-                </div>		
-				
-	<form action="index.php?a=updateonay" method="post">
-	<input type="hidden" value="<?php echo $_GET["id"]; ?>" name="id">
-						<div class="modal-body px-sm-5 mx-50 pb-5">
-                                <h1 class="text-center mb-1" id="addNewCardTitle"></h1>
+    <!--/ Line Chart -->
+    <div class="col-lg-10 col-12">
+      <div class="card card-statistics">
+        <div class="card-header">
+          <h4 class="card-title">Bilgisayar</h4>
+          <div class="d-flex align-items-center">
+            <p class="card-text me-25 mb-0">Updated 1 month ago</p>
+          </div>
+        </div>
+        <div class="card-body statistics-body">
+          <div class="row">
+            <div class="col-md-2 col-sm-6 col-12 mb-2 mb-md-0">
+              <div class="d-flex flex-row">
+                <div class="avatar bg-light-primary me-2">
+                  <div class="avatar-content">
+                    <i data-feather="trending-up" class="avatar-icon"></i>
+                  </div>
+                </div>
+                <div class="my-auto">
+                  <h4 class="fw-bolder mb-0">-</h4>
+                  <p class="card-text font-small-3 mb-0">Toplam PC</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-12 mb-2 mb-md-0">
+              <div class="d-flex flex-row">
+                <div class="avatar bg-light-info me-2">
+                  <div class="avatar-content">
+                    <i data-feather="user" class="avatar-icon"></i>
+                  </div>
+                </div>
+                <div class="my-auto">
+                  <h4 class="fw-bolder mb-0">-</h4>
+                  <p class="card-text font-small-3 mb-0">Atanmamış PC</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-12 mb-2 mb-sm-0">
+              <div class="d-flex flex-row">
+                <div class="avatar bg-light-danger me-2">
+                  <div class="avatar-content">
+                    <i data-feather="box" class="avatar-icon"></i>
+                  </div>
+                </div>
+                <div class="my-auto">
+                  <h4 class="fw-bolder mb-0">-</h4>
+                  <p class="card-text font-small-3 mb-0">Domain</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2 col-sm-6 col-12">
+              <div class="d-flex flex-row">
+                <div class="avatar bg-light-success me-2">
+                  <div class="avatar-content">
+                    <i data-feather="dollar-sign" class="avatar-icon"> </i>
+                  </div>
+                </div>
+                <div class="my-auto">
+                  <h4 class="fw-bolder mb-0">-</h4>
+                  <p class="card-text font-small-3 mb-0">Lisans</p>
+                </div>
+              </div>
+            </div>			
+            <div class="col-md-2 col-sm-6 col-12">
+              <div class="d-flex flex-row">
+                <div class="avatar bg-light-success me-2">
+                  <div class="avatar-content">
+                    <i data-feather="dollar-sign" class="avatar-icon"> </i>
+                  </div>
+                </div>
+                <div class="my-auto">
+                  <h4 class="fw-bolder mb-0">-</h4>
+                  <p class="card-text font-small-3 mb-0">Antivirüs</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/ Miscellaneous Charts -->
 
-                                <!-- form -->
-                                <div id="addNewCardValidation3" class="row gy-1 gx-2 mt-75">
-
-									<div class="col-md-6">
-                                        <label class="form-label" for="firma">Firma Adı</label>
-                                        <input type="text" id="firma" class="form-control" name="firma" value="<?php echo $edit_row["firma"]; ?>" required>
-                                    </div>
+  <!-- Stats Vertical Card -->
+  
+  
+<div class="row match-height"> 
 
 
-                                    <div class="col-12 text-center">
-                                        <button type="submit" class="btn btn-primary me-1 mt-1">Güncelle</button>
-                                        <button onclick="history.back();" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal" aria-label="Close">
-                                            İptal
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-			</form>		
+    <div class="col-xl-2 col-md-4 col-sm-6">
+      <div class="card text-center">
+        <div class="card-body">
+          <div class="avatar bg-light-info p-50 mb-1">
+            <div class="avatar-content">
+              <i data-feather="eye" class="font-medium-5"></i>
+            </div>
+          </div>
+          <h2 class="fw-bolder">-</h2>
+          <p class="card-text">Telefon</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-2 col-md-4 col-sm-6">
+      <div class="card text-center">
+        <div class="card-body">
+          <div class="avatar bg-light-warning p-50 mb-1">
+            <div class="avatar-content">
+              <i data-feather="message-square" class="font-medium-5"></i>
+            </div>
+          </div>
+          <h2 class="fw-bolder">-</h2>
+          <p class="card-text">Data Hattı</p>
+        </div>
+      </div>
+    </div>
 
-<?php
-break;
+  
+ <div class="col-lg-8 col-12">
+      <div class="card card-statistics">
+        <div class="card-header">
+          <h4 class="card-title">Telefon</h4>
+          <div class="d-flex align-items-center">
+            <p class="card-text me-25 mb-0">Updated 1 month ago</p>
+          </div>
+        </div>
+        <div class="card-body statistics-body">
+          <div class="row">
+            <div class="col-md-3 col-sm-6 col-12 mb-2 mb-md-0">
+              <div class="d-flex flex-row">
+                <div class="avatar bg-light-primary me-2">
+                  <div class="avatar-content">
+                    <i data-feather="trending-up" class="avatar-icon"></i>
+                  </div>
+                </div>
+                <div class="my-auto">
+                  <h4 class="fw-bolder mb-0">-</h4>
+                  <p class="card-text font-small-3 mb-0">Toplam Telefon</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-12 mb-2 mb-md-0">
+              <div class="d-flex flex-row">
+                <div class="avatar bg-light-info me-2">
+                  <div class="avatar-content">
+                    <i data-feather="user" class="avatar-icon"></i>
+                  </div>
+                </div>
+                <div class="my-auto">
+                  <h4 class="fw-bolder mb-0">-</h4>
+                  <p class="card-text font-small-3 mb-0">Atanmamış Telefon</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-12 mb-2 mb-sm-0">
+              <div class="d-flex flex-row">
+                <div class="avatar bg-light-danger me-2">
+                  <div class="avatar-content">
+                    <i data-feather="box" class="avatar-icon"></i>
+                  </div>
+                </div>
+                <div class="my-auto">
+                  <h4 class="fw-bolder mb-0">-</h4>
+                  <p class="card-text font-small-3 mb-0">Data Hattı</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6 col-12">
+              <div class="d-flex flex-row">
+                <div class="avatar bg-light-success me-2">
+                  <div class="avatar-content">
+                    <i data-feather="dollar-sign" class="avatar-icon"> </i>
+                  </div>
+                </div>
+                <div class="my-auto">
+                  <h4 class="fw-bolder mb-0">-</h4>
+                  <p class="card-text font-small-3 mb-0">Ses Hattı</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>	
+</div>	
+	
+
+  <!--/ Stats Vertical Card -->
+
+  <!-- Stats Horizontal Card -->
+  <div class="row">
+    <div class="col-lg-3 col-sm-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="fw-bolder mb-0">-%</h2>
+            <p class="card-text">CPU Usage</p>
+          </div>
+          <div class="avatar bg-light-primary p-50 m-0">
+            <div class="avatar-content">
+              <i data-feather="cpu" class="font-medium-5"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="fw-bolder mb-0">-gb</h2>
+            <p class="card-text">Memory Usage</p>
+          </div>
+          <div class="avatar bg-light-success p-50 m-0">
+            <div class="avatar-content">
+              <i data-feather="server" class="font-medium-5"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="fw-bolder mb-0">-%</h2>
+            <p class="card-text">Downtime Ratio</p>
+          </div>
+          <div class="avatar bg-light-danger p-50 m-0">
+            <div class="avatar-content">
+              <i data-feather="activity" class="font-medium-5"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-sm-6 col-12">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="fw-bolder mb-0">-</h2>
+            <p class="card-text">Issues Found</p>
+          </div>
+          <div class="avatar bg-light-warning p-50 m-0">
+            <div class="avatar-content">
+              <i data-feather="alert-octagon" class="font-medium-5"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/ Stats Horizontal Card -->
+
+</section>
+<!--/ Statistics Card section-->
 
 
-case "updateonay": 
-
-$id = $_POST['id'];
-$firma = str_replace("'", "\'", $_POST['firma']);
-
-sqlsrv_query($con,"UPDATE firma SET firma='".$firma."' where id='".$id."' ");
-
-echo '<meta http-equiv="refresh" content="0;URL=index.php">';
-break;
-
-
-case "delete": 
-$id = $_GET['id'];
-echo "Gizlemek İstiyormuzunuz ? <a href='index.php?a=delete_onay&id=".$id."'>Onayla</a> -";
-echo " <a href='index.php'>İptal</a>";
-break;
-
-case "delete_onay": 
-$id = $_GET['id'];
-sqlsrv_query($con,'UPDATE firma SET gizle="1" where id="'.$id.'"');
-echo '<meta http-equiv="refresh" content="0;URL=index.php">';
-break;
-
-}
-	?>
             
                 <!-- Dashboard Ecommerce ends -->
 
@@ -189,17 +376,17 @@ break;
     <!-- BEGIN: Vendor JS-->
     <script src="/app-assets/vendors/js/vendors.min.js"></script>
 	
-	<script src="/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
-    <script src="/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
-    <script src="/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js"></script>
-    <script src="/app-assets/vendors/js/tables/datatable/responsive.bootstrap5.js"></script>
-    <script src="/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
+    <script src="/app-assets/vendors/js/charts/apexcharts.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
     <script src="/app-assets/js/core/app-menu.js"></script>
     <script src="/app-assets/js/core/app.js"></script>
+    <script src="/app-assets/js/scripts/customizer.min.js"></script>
     <!-- END: Theme JS-->
+
+
+	<script src="/app-assets/js/scripts/cards/card-statistics.min.js"></script>
 
 
     <script>
@@ -212,35 +399,7 @@ break;
             }
         })
     </script>
-	
-	
-	<script>
-        $(document).ready(function(){
-            var dataTable = $('#empTable').DataTable({
-                'processing': true,
-                'serverSide': true,
-                'serverMethod': 'post',
-				"pageLength": 40,
-                //'searching': false, // Remove default Search Control 'order': [[ 0, "desc" ]],
-                'ajax': {
-                    'url':'list-firma.php',
-                },
-				'order': [[ 2, "desc" ]],
-                'columns': [
-                    { data: 'check' },
-					{ data: 'firma' },
-					{ data: 'kayit_tarih' },
-					{ data: "id" , render : function ( data, type, row, meta ) {
-				return type === 'display'  ?
-               '<a href="firma.php?id='+ data +'"><button type="button" class="btn btn-primary"><i class="fa fa-eye"></i> Detay</button></a> <a href="index.php?a=update&id='+ data +'"><button type="button" class="btn btn-warning"><i class="fa fa-pencil"></i> Düzenle</button></a> <a href="index.php?a=delete&id='+ data +'"><button type="button" class="btn btn-danger"><i class="fa fa-trash"></i> Sil</button></a>' :
-                data;
-				}}
-				]	
-            });
-
-        });
-        </script>
-		
+   
 </body>
 <!-- END: Body-->
 

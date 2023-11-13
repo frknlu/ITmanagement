@@ -159,7 +159,7 @@ case "":
 											<select data-placeholder="Select a sim..." name="sim" class="form-select" id="Sim" onChange="simcheck(this);">
 											<option value="">Data & Sim Yok</option>
 											<?php 
-												$sim_query = sqlsrv_query($con,"SELECT * FROM sim where hide='0'");
+												$sim_query = sqlsrv_query($con,"SELECT * FROM inventory where data_type='5' and hide='0'");
 												while($sim_row = sqlsrv_fetch_array($sim_query)){
 													echo '<option value="'.$sim_row["id"].'">'.$sim_row["type"].': '.$sim_row["number"].' / '.$sim_row["short_number"].' / '.$sim_row["operator"].'</option>';
 												}									
@@ -175,8 +175,8 @@ case "":
 											<label class="form-label" for="Imeil">İmeil</label>
 											<input type="text" id="Imeil" class="form-control" name="imeil" placeholder="İmeil"  />
 											
-											<label class="form-label" for="Memory">Hafıza</label>
-											<input type="number" id="Memory" class="form-control" name="memory" placeholder="Hafıza"  />
+											<label class="form-label" for="Hdd">Hafıza</label>
+											<input type="number" id="Hdd" class="form-control" name="hdd" placeholder="Hafıza"  />
 											
                                     </div>
 							
@@ -243,7 +243,7 @@ case "":
 											<select data-placeholder="Select a sim..." name="sim" class="form-select" id="sim" onChange="simcheck2(this);">
 											<option value="">Data & Sim Yok</option>
 											<?php 
-												$sim_query = sqlsrv_query($con,"SELECT * FROM sim where hide='0'");
+												$sim_query = sqlsrv_query($con,"SELECT * FROM inventory where data_type='5' and hide='0'");
 												while($sim_row = sqlsrv_fetch_array($sim_query)){
 													echo '<option value="'.$sim_row["id"].'">'.$sim_row["type"].': '.$sim_row["number"].' / '.$sim_row["short_number"].' / '.$sim_row["operator"].'</option>';
 												}									
@@ -258,8 +258,8 @@ case "":
 											<label class="form-label" for="Imeil">İmeil</label>
 											<input type="text" id="imeil" class="form-control" name="imeil" placeholder="İmeil"  />
 											
-											<label class="form-label" for="Memory">Hafıza</label>
-											<input type="number" id="memory" class="form-control" name="memory" placeholder="Hafıza"  />											
+											<label class="form-label" for="hdd">Hafıza</label>
+											<input type="number" id="hdd" class="form-control" name="hdd" placeholder="Hafıza"  />											
 											
 											
                                     </div>
@@ -320,12 +320,12 @@ $model = $_POST['model'];
 $color = $_POST['color'];
 $sn = $_POST['sn'];
 $imeil = $_POST['imeil'];
-$memory = $_POST['memory'];
+$hdd = $_POST['hdd'];
 $nots = str_replace("'", "\'", $_POST['nots']);
 if($brand == ""){
 echo '<meta http-equiv="refresh" content="0;URL=phone.php">';
 }else{
-$last_query = sqlsrv_query($con,"INSERT INTO phones (users,number,type,short_number,sim,brand,model,color,sn,imeil,memory,nots) values ('".$users."','".$number."','".$type."','".$short_number."','".$sim."','".$brand."','".$model."','".$color."','".$sn."','".$imeil."','".$memory."','".$nots."')") or die( print_r( sqlsrv_errors(), true));
+$last_query = sqlsrv_query($con,"INSERT INTO inventory (users,number,type,short_number,sim,brand,model,color,sn,imeil,hdd,nots,data_type) values ('".$users."','".$number."','".$type."','".$short_number."','".$sim."','".$brand."','".$model."','".$color."','".$sn."','".$imeil."','".$hdd."','".$nots."','2')") or die( print_r( sqlsrv_errors(), true));
 sqlsrv_next_result($last_query);
 sqlsrv_fetch($last_query);
 $process_id = sqlsrv_get_field($last_query,0);
@@ -345,16 +345,16 @@ $model = $_POST['model'];
 $color = $_POST['color'];
 $sn = $_POST['sn'];
 $imeil = $_POST['imeil'];
-$memory = $_POST['memory'];
+$hdd = $_POST['hdd'];
 $nots = str_replace("'", "\'", $_POST['nots']);
-sqlsrv_query($con,"UPDATE phones SET users='".$users."',number='".$number."',type='".$type."',short_number='".$short_number."',sim='".$sim."',brand='".$brand."',model ='".$model ."',color='".$color."',sn='".$sn."',imeil='".$imeil."',memory='".$memory."',nots='".$nots."' where id='".$id."' ");
+sqlsrv_query($con,"UPDATE inventory SET users='".$users."',number='".$number."',type='".$type."',short_number='".$short_number."',sim='".$sim."',brand='".$brand."',model ='".$model ."',color='".$color."',sn='".$sn."',imeil='".$imeil."',hdd='".$hdd."',nots='".$nots."' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','update')");
 echo '<meta http-equiv="refresh" content="0;URL=phone.php">';
 break;
 case "delete": 
 $id = $_POST['id'];
-sqlsrv_query($con,"UPDATE phones SET hide='1' where id='".$id."' ");
+sqlsrv_query($con,"UPDATE inventory SET hide='1' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','delete')");
 echo '<meta http-equiv="refresh" content="0;URL=phone.php">';
@@ -415,7 +415,7 @@ break;
     </script>
 <script>
 
-	function simcheck(val) {
+	/*function simcheck(val) {
 	var sim = $('#Sim').val();
 	if(sim != null){
 	$.ajax({ // Handling
@@ -427,7 +427,7 @@ break;
                 } 
 	});	
 	}	
-	}
+	} 
 
 	function simcheck2(val) {
 	var sim = $('#sim').val();
@@ -441,7 +441,7 @@ break;
                 } 
 	});	
 	}	
-	}
+	}*/
 	
 	 $(document).ready(function(){  
 	      $(document).on('click', '.edit_modal', function(){  
@@ -460,7 +460,7 @@ break;
 					    $('#color').val(data.color);
 						 $('#sn').val(data.sn);
 						  $('#imeil').val(data.imeil);
-						  $('#memory').val(data.memory);
+						  $('#hdd').val(data.hdd);
 						  $('#nots').val(data.nots);
                      $('#edit_modal').modal('show');  
                 }  
@@ -496,7 +496,7 @@ break;
 					{ data: 'color' },
 					{ data: 'sn' },
 					{ data: 'imeil' },
-					{ data: 'memory' },
+					{ data: 'hdd' },
 					{ data: 'nots' },
 					{ data: "id" , render : function ( data, type, row, meta ) {
 				return type === 'display'  ? 

@@ -106,7 +106,8 @@ case "":
 											<th>Model</th>
 											<th>Renk</th>
 											<th>SN</th>
-											<th>IP/MAC</th>
+											<th>IP</th>
+											<th>MAC</th>
 											<th>Hafıza</th>
 											<th>Not</th>
 											<th>İşlem</th>
@@ -143,8 +144,8 @@ case "":
 											?>
 											</select>									
 
-											<label class="form-label" for="Name">Cihaz Adı</label>
-											<input type="text" id="Name" class="form-control" name="name" placeholder="Cihaz Adı" required />
+											<label class="form-label" for="Device_name">Cihaz Adı</label>
+											<input type="text" id="Device_name" class="form-control" name="device_name" placeholder="Cihaz Adı" required />
 											
 											<label class="form-label" for="Brand">Marka</label>
 											<input type="text" id="Brand" class="form-control" name="brand" placeholder="Marka"/>
@@ -163,13 +164,22 @@ case "":
 											<label class="form-label" for="Sn">SN</label>
 											<input type="text" id="Sn" class="form-control" name="sn" placeholder="sn"/>
 											
-											<label class="form-label" for="Imeil">IP/MAC</label>
-											<input type="text" id="Imeil" class="form-control" name="imeil" placeholder="IP/MAC"/>
+											<div class="row">
+											<div class="col-md-6">
+											<label class="form-label" for="Ip">IP</label>
+											<input type="text" id="Ip" class="form-control" name="ip" placeholder="IP"/>
+											</div>
+											<div class="col-md-6">
+											<label class="form-label" for="Mac">Mac</label>
+											<input type="text" id="Mac" class="form-control" name="mac" placeholder="MAC"/>	
+											</div>
+											</div>
 											
-											<label class="form-label" for="Memory">Hafıza</label>
-											<input type="number" id="Memory" class="form-control" name="memory" placeholder="Hafıza"/>
-											
-                                    </div>
+											<label class="form-label" for="Hdd">Hafıza</label>
+											<input type="number" id="Hdd" class="form-control" name="hdd" placeholder="Hafıza"/>
+
+										
+                                     </div>
 							
 											<div class="mb-1">
 													<label class="form-label" for="Not">Not</label>
@@ -216,8 +226,8 @@ case "":
 											?>
 											</select>									
 
-											<label class="form-label" for="name">Cihaz Adı</label>
-											<input type="text" id="name" class="form-control" name="name" placeholder="Cihaz Adı" required />
+											<label class="form-label" for="device_name">Cihaz Adı</label>
+											<input type="text" id="device_name" class="form-control" name="device_name" placeholder="Cihaz Adı" required />
 											
 											<label class="form-label" for="Brand">Marka</label>
 											<input type="text" id="brand" class="form-control" name="brand" placeholder="Marka"/>
@@ -237,11 +247,19 @@ case "":
 											<label class="form-label" for="Sn">SN</label>
 											<input type="text" id="sn" class="form-control" name="sn" placeholder="sn"/>
 											
-											<label class="form-label" for="Imeil">IP/MAC</label>
-											<input type="text" id="imeil" class="form-control" name="imeil" placeholder="IP/MAC"/>
+											<div class="row">
+											<div class="col-md-6">
+											<label class="form-label" for="Ip">IP</label>
+											<input type="text" id="ip" class="form-control" name="ip" placeholder="IP"/>
+											</div>
+											<div class="col-md-6">
+											<label class="form-label" for="Mac">Mac</label>
+											<input type="text" id="mac" class="form-control" name="mac" placeholder="MAC"/>	
+											</div>
+											</div>
 											
-											<label class="form-label" for="Memory">Hafıza</label>
-											<input type="number" id="memory" class="form-control" name="memory" placeholder="Hafıza"/>											
+											<label class="form-label" for="hdd">Hafıza</label>
+											<input type="number" id="hdd" class="form-control" name="hdd" placeholder="Hafıza"/>											
 											
 											
                                     </div>
@@ -295,19 +313,20 @@ case "new":
 $users = $_POST['users'];
 $number = $_POST['number'];
 $type = $_POST['type'];
-$name = $_POST['name'];
+$device_name = $_POST['device_name'];
 $short_number = $_POST['short_number'];
 $brand = $_POST['brand'];
 $model = $_POST['model'];
 $color = $_POST['color'];
 $sn = $_POST['sn'];
-$imeil = $_POST['imeil'];
-$memory = $_POST['memory'];
+$ip = $_POST['ip'];
+$mac = $_POST['mac'];
+$hdd = $_POST['hdd'];
 $nots = str_replace("'", "\'", $_POST['nots']);
-if($name == ""){
+if($device_name == ""){
 echo '<meta http-equiv="refresh" content="0;URL=others.php">';
 }else{
-$last_query = sqlsrv_query($con,"INSERT INTO others (users,number,type,short_number,name,brand,model,color,sn,imeil,memory,nots) values ('".$users."','".$number."','".$type."','".$short_number."','".$name."','".$brand."','".$model."','".$color."','".$sn."','".$imeil."','".$memory."','".$nots."')") or die( print_r( sqlsrv_errors(), true));
+$last_query = sqlsrv_query($con,"INSERT INTO inventory (users,number,type,short_number,device_name,brand,model,color,sn,ip,mac,hdd,nots,data_type) values ('".$users."','".$number."','".$type."','".$short_number."','".$device_name."','".$brand."','".$model."','".$color."','".$sn."','".$ip."','".$mac."','".$hdd."','".$nots."','4')") or die( print_r( sqlsrv_errors(), true));
 sqlsrv_next_result($last_query);
 sqlsrv_fetch($last_query);
 $process_id = sqlsrv_get_field($last_query,0);
@@ -320,23 +339,24 @@ $id = $_POST["id"];
 $users = $_POST['users'];
 $number = $_POST['number'];
 $type = $_POST['type'];
-$name = $_POST['name'];
+$device_name = $_POST['device_name'];
 $short_number = $_POST['short_number'];
 $brand = $_POST['brand'];
 $model = $_POST['model'];
 $color = $_POST['color'];
 $sn = $_POST['sn'];
-$imeil = $_POST['imeil'];
-$memory = $_POST['memory'];
+$ip = $_POST['ip'];
+$mac = $_POST['mac'];
+$hdd = $_POST['hdd'];
 $nots = str_replace("'", "\'", $_POST['nots']);
-sqlsrv_query($con,"UPDATE others SET users='".$users."',number='".$number."',type='".$type."',short_number='".$short_number."',name='".$name."',brand='".$brand."',model ='".$model ."',color='".$color."',sn='".$sn."',imeil='".$imeil."',memory='".$memory."',nots='".$nots."' where id='".$id."' ");
+sqlsrv_query($con,"UPDATE inventory SET users='".$users."',number='".$number."',type='".$type."',short_number='".$short_number."',device_name='".$device_name."',brand='".$brand."',model ='".$model ."',color='".$color."',sn='".$sn."',ip='".$ip."',mac='".$mac."',hdd='".$hdd."',nots='".$nots."' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','update')");
 echo '<meta http-equiv="refresh" content="0;URL=others.php">';
 break;
 case "delete": 
 $id = $_POST['id'];
-sqlsrv_query($con,"UPDATE others SET hide='1' where id='".$id."' ");
+sqlsrv_query($con,"UPDATE inventory SET hide='1' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','delete')");
 echo '<meta http-equiv="refresh" content="0;URL=others.php">';
@@ -407,13 +427,14 @@ break;
                 success:function(data){  
 					 $('#id').val(data.id);
                      $('#users').val(data.users);  
-					 $('#name').val(data.name);
+					 $('#device_name').val(data.device_name);
 					  $('#brand').val(data.brand);
 					   $('#model').val(data.model);
 					    $('#color').val(data.color);
 						 $('#sn').val(data.sn);
-						  $('#imeil').val(data.imeil);
-						  $('#memory').val(data.memory);
+						  $('#ip').val(data.ip);
+						  $('#mac').val(data.mac);
+						  $('#hdd').val(data.hdd);
 						  $('#nots').val(data.nots);
                      $('#edit_modal').modal('show');  
                 }  
@@ -443,13 +464,14 @@ break;
                 'columns': [
 					{ data: 'id' },
 					{ data: 'users' },
-					{ data: 'name' },
+					{ data: 'device_name' },
 					{ data: 'brand' },
 					{ data: 'model' },
 					{ data: 'color' },
 					{ data: 'sn' },
-					{ data: 'imeil' },
-					{ data: 'memory' },
+					{ data: 'ip' },
+					{ data: 'mac' },
+					{ data: 'hdd' },
 					{ data: 'nots' },
 					{ data: "id" , render : function ( data, type, row, meta ) {
 				return type === 'display'  ? 

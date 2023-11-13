@@ -5,7 +5,7 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 }
 if(isset($_POST["id_data"]))  
  {  
-      $query = "SELECT * FROM computers WHERE id='".$_POST["id_data"]."'";
+      $query = "SELECT * FROM inventory WHERE data_type='1' and id='".$_POST["id_data"]."'";
       $result = sqlsrv_query($con, $query);  
 	  while ($row = sqlsrv_fetch_array($result)) {
 		$data = array(

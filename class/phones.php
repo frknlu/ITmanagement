@@ -10,7 +10,7 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 ## Read value
 $draw = $_POST['draw'];
 
-$empRecords = sqlsrv_query($con, "select * from phones WHERE hide='0'");
+$empRecords = sqlsrv_query($con, "select * from inventory WHERE data_type='2' and hide='0'");
 $data = array();
 
 while ($row = sqlsrv_fetch_array($empRecords)) {
@@ -21,7 +21,7 @@ while ($row = sqlsrv_fetch_array($empRecords)) {
 	$user_row = sqlsrv_fetch_array($user_query);	
 	$users = $user_row['name']." ".$user_row['surname'];
 
-	$sim_query = sqlsrv_query($con,"SELECT * FROM sim where id='".$row['sim']."'");
+	$sim_query = sqlsrv_query($con,"SELECT * FROM inventory where id='".$row['sim']."'");
 	$sim_row = sqlsrv_fetch_array($sim_query);
 	if($sim_row == ""){ $sim = ""; }
 	else{
@@ -40,7 +40,7 @@ while ($row = sqlsrv_fetch_array($empRecords)) {
 			"short_number"=>$row['short_number'],
 			"color"=>$row['color'],
 			"imeil"=>$row['imeil'],
-			"memory"=>$row['memory'],
+			"hdd"=>$row['hdd'],
 			"nots"=>$row['nots']
     	);
 
