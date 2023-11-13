@@ -20,7 +20,7 @@ if ( $_SESSION['Oturum'] != 'true' ) {
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="FurkanÜnlü">
-    <title>Kullanıcı Yönetimi | Danet IT</title>
+    <title>Wireless | Danet IT</title>
     <link rel="apple-touch-icon" href="/app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -28,9 +28,8 @@ if ( $_SESSION['Oturum'] != 'true' ) {
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/vendors.min.css">
 	
+
     <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">	
-	
-	<link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/forms/select/select2.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -82,71 +81,36 @@ if ( $_SESSION['Oturum'] != 'true' ) {
         <div class="content-wrapper p-0">
             <div class="content-header row">
             </div>
-            
-			
-			
-			
- <div class="content-body">
-                <div class="row">
-                    <div class="col-12">
+            <div class="content-body">
+                <!-- Dashboard Ecommerce Starts -->
 
 
-<?php
+<?php    
 $adim = @$_GET["process"];
 switch($adim){
-case "":	/*
-$empRecords = sqlsrv_query($con, "select * from users where active='1'");
-$active = sqlsrv_num_rows($empRecords);
-$empRecords2 = sqlsrv_query($con, "select * from users where active='0'");
-$closed = sqlsrv_num_rows($empRecords2);*/
-?>
+ 
+case "":
 
-					<div class="row">
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card">
-                                <div class="card-body d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h3 class="fw-bolder mb-75"><?php echo $active ?></h3>
-                                        <span>Active Users</span>
-                                    </div>
-                                    <div class="avatar bg-light-success p-50">
-                                        <span class="avatar-content">
-                                            <i data-feather="user-check" class="font-medium-4"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="card">
-                                <div class="card-body d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <h3 class="fw-bolder mb-75"><?php echo $closed ?></h3>
-                                        <span>Passive Users</span>
-                                    </div>
-                                    <div class="avatar bg-light-warning p-50">
-                                        <span class="avatar-content">
-                                            <i data-feather="user-x" class="font-medium-4"></i>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-					
-		         <section id="basic-datatable">
+?>
+		        <section id="responsive-datatable">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <table id="empTable" class="dataTable table table-bordered table-striped">
+								<table id="empTable" class="dataTable table table-bordered table-striped">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-											<th>USERNAME</th>
-											<th>AUTHORITY</th>
-											<th>MODIFIED</th>
-											<th>STATUS</th>
-											<th>PROCESS</th>
+											<th>Kullanıcı</th>
+											<th>Cihaz Adı</th>
+											<th>Marka</th>
+											<th>Model</th>
+											<th>SN</th>
+											<th>IP</th>
+											<th>MAC</th>
+											<th>Firmware</th>
+											<th>Yeri</th>
+											<th>Not</th>
+											<th>İşlem</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -154,45 +118,67 @@ $closed = sqlsrv_num_rows($empRecords2);*/
                         </div>
                     </div>
                 </section>
-
-	
-		 <form action="settings_users.php?process=new" method="post">
+				
+<form action="wifi.php?process=new" method="post">
 		 <div class="modal fade" id="addNew" tabindex="-1" aria-labelledby="addNewCardTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-dialog modal-dialog-centered modal-xl">
                         <div class="modal-content">
                             <div class="modal-header bg-transparent">
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body px-sm-5 mx-50 pb-5">
-                                <h1 class="text-center mb-1" id="addNewCardTitle">Create User</h1>
+                                <h1 class="text-center mb-1" id="addNewCardTitle">Yeni Kayıt</h1>
 								
 								<div class="row">
 
-									<div class="col-md-12">
+									<div class="col-md-6">
 									
-											<label class="form-label" for="Username">Username</label>
-											<input type="text" id="Username" class="form-control" name="username" placeholder="Username" required />
+											<label class="form-label" for="Users">Kullanıcı</label>
+											<select data-placeholder="Select a users..." name="users" class="form-select" id="Users">
+											<option value="">Kullanıcı Yok</option>
+											<?php 
+												$departmanet_query = sqlsrv_query($con,"SELECT * FROM employee where hide='0'");
+												while($departmanet_row = sqlsrv_fetch_array($departmanet_query)){
+													echo '<option value="'.$departmanet_row["id"].'">'.$departmanet_row["name"].'</option>';
+												}									
+											?>
+											</select>									
+
+											<label class="form-label" for="Name">Cihaz Adı</label>
+											<input type="text" id="Device_name" class="form-control" name="device_name" placeholder="Cihaz Adı" required />
 											
-											<label class="form-label" for="Password">Password</label>
-											<input type="text" id="Password" class="form-control" name="password" placeholder="Password" required />	
+											<label class="form-label" for="Brand">Marka</label>
+											<input type="text" id="Brand" class="form-control" name="brand" placeholder="Marka"/>
 
-											<label class="form-label" for="Status">Status</label>
-											<select data-placeholder="Select a status..." name="status" class="form-select" id="Status">
-													   <option value="1">Active</option>
-														<option value="0">Passive</option>
-											</select>
+											<label class="form-label" for="Model">Model</label>
+											<input type="text" id="Model" class="form-control" name="model" placeholder="Model"/>
 
-											<label class="form-label" for="Authority">Authority</label>
-											<select data-placeholder="Select a Authority..." name="authority[]" class="select2 form-select" id="Authority" multiple>
-												<option value="1">Ekle</option>
-												<option value="2">Düzenle</option>
-												<option value="3">Sil</option>
-												<option value="4">Görüntüle</option>
-												<option value="5">Ayarlar</option>
-											</select>											
-												
-									</div>	
-	 
+											<label class="form-label" for="Sn">SN</label>
+											<input type="text" id="Sn" class="form-control" name="sn" placeholder="Sn"/>
+											
+                                     </div>
+									 
+									  <div class="col-md-6">
+
+											<label class="form-label" for="Ip">IP</label>
+											<input type="text" id="Ip" class="form-control" name="ip" placeholder="IP"/>
+											
+											<label class="form-label" for="Mac">MAC</label>
+											<input type="text" id="Mac" class="form-control" name="mac" placeholder="MAC"/>
+											
+											<label class="form-label" for="Location">Yeri</label>
+											<input type="text" id="Location" class="form-control" name="location" placeholder="Yeri"/>
+
+											<label class="form-label" for="Firmware">Firmware</label>
+											<input type="text" id="Firmware" class="form-control" name="firmware" placeholder="Firmware"/>
+
+                                    </div>
+							
+											<div class="mb-1">
+													<label class="form-label" for="Not">Not</label>
+													<textarea name="nots" class="form-control" id="Nots" rows="2" placeholder="Not"></textarea>
+											</div>
+							
 								</div>
 	
                                     <div class="col-12 text-center">
@@ -205,63 +191,84 @@ $closed = sqlsrv_num_rows($empRecords2);*/
                         </div>
                     </div>
                 </div>
-			</form>
-		
-
-		 <form action="settings_users.php?process=update" method="post">
+			</form>		
+			
+			
+<form action="wifi.php?process=update" method="post">
 		 <div class="modal fade" id="edit_modal" tabindex="-1" aria-labelledby="editmodaltitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-dialog modal-dialog-centered modal-xl">
                         <div class="modal-content">
                             <div class="modal-header bg-transparent">
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body px-sm-5 mx-50 pb-5">
-                                <h1 class="text-center mb-1" id="editmodaltitle">Update Users</h1>
+                                <h1 class="text-center mb-1" id="addNewCardTitle">Update</h1>
 								
-							<div class="row">
+								<div class="row">
 
-									<div class="col-md-12">
+									<div class="col-md-6">
 									
-											<label class="form-label" for="Username">Username</label>
-											<input type="text" id="username" class="form-control" name="username" placeholder="Username" required />
+											<label class="form-label" for="Users">Kullanıcı</label>
+											<select data-placeholder="Select a users..." name="users" class="form-select" id="users">
+											<option value="">Kullanıcı Yok</option>
+											<?php 
+												$departmanet_query = sqlsrv_query($con,"SELECT * FROM employee where hide='0'");
+												while($departmanet_row = sqlsrv_fetch_array($departmanet_query)){
+													echo '<option value="'.$departmanet_row["id"].'">'.$departmanet_row["name"].'</option>';
+												}									
+											?>
+											</select>									
+
+											<label class="form-label" for="Name">Cihaz Adı</label>
+											<input type="text" id="device_name" class="form-control" name="device_name" placeholder="Cihaz Adı" required />
 											
-											<label class="form-label" for="Password">Password</label>
-											<input type="text" id="password" class="form-control" name="password" placeholder="Password" />	
+											<label class="form-label" for="Brand">Marka</label>
+											<input type="text" id="brand" class="form-control" name="brand" placeholder="Marka"/>
 
-											<label class="form-label" for="Status">Status</label>
-											<select data-placeholder="Select a status..." name="status" class="form-select" id="status">
-													<option value="1">Active</option>
-													<option value="0">Passive</option>
-											</select>
+											<label class="form-label" for="Model">Model</label>
+											<input type="text" id="model" class="form-control" name="model" placeholder="Model"/>
 
-											<label class="form-label" for="Authority">Authority</label>
-											<select data-placeholder="Select a Authority..." name="authority[]" class="select2 form-select" id="authority" multiple>
-												<option value="1">Ekle</option>
-												<option value="2">Düzenle</option>
-												<option value="3">Sil</option>
-												<option value="4">Görüntüle</option>
-												<option value="5">Ayarlar</option>
-											</select>											
-												
-									</div>	
+											<label class="form-label" for="Sn">SN</label>
+											<input type="text" id="sn" class="form-control" name="sn" placeholder="Sn"/>
+											
+                                     </div>
 									 
-							</div>
+									  <div class="col-md-6">
 
+											<label class="form-label" for="Ip">IP</label>
+											<input type="text" id="ip" class="form-control" name="ip" placeholder="IP"/>
+											
+											<label class="form-label" for="Mac">MAC</label>
+											<input type="text" id="mac" class="form-control" name="mac" placeholder="MAC"/>
+											
+											<label class="form-label" for="location">Yeri</label>
+											<input type="text" id="location" class="form-control" name="location" placeholder="Yeri"/>
+
+											<label class="form-label" for="firmware">Firmware</label>
+											<input type="text" id="firmware" class="form-control" name="firmware" placeholder="Firmware"/>
+                                    </div>
+							
+											<div class="mb-1">
+													<label class="form-label" for="Not">Not</label>
+													<textarea name="nots" class="form-control" id="nots" rows="2" placeholder="Not"></textarea>
+											</div>
+							
+								</div>
+	
                                     <div class="col-12 text-center">
                                         <button type="submit" class="btn btn-primary me-1 mt-1">Update</button>
                                         <button type="reset" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal" aria-label="Close">
                                             Cancel
                                         </button>
-                                    </div> 
+                                    </div>
                             </div>
                         </div>
                     </div>
                 </div>
 				<input type="hidden" name="id" id="id" required />
-			</form>
+			</form>				
 			
-			
-		  <form action="settings_users.php?process=delete" method="post">
+		  <form action="wifi.php?process=delete" method="post">
 			 <div class="modal fade" id="delete_modal" tabindex="-1" aria-labelledby="deletemodaltitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -270,8 +277,8 @@ $closed = sqlsrv_num_rows($empRecords2);*/
                             </div>
                             <div class="modal-body px-sm-5 mx-50 pb-5">
                                     <div class="col-12 text-center">
-									<h1 class="text-center" id="deletemodaltitle">ID: <b id="id_delete_show"></b> Are you sure you want to close this account?</h1>
-                                        <button type="submit" class="btn btn-danger me-1 mt-1">Close Account</button>
+									<h1 class="text-center" id="deletemodaltitle">ID: <b id="id_delete_show"></b> Are you sure you want to delete this item?</h1>
+                                        <button type="submit" class="btn btn-danger me-1 mt-1">Delete</button>
                                         <button type="reset" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal" aria-label="Close">
                                             Cancel
                                         </button>
@@ -281,98 +288,63 @@ $closed = sqlsrv_num_rows($empRecords2);*/
                     </div>
                 </div>
 				<input type="hidden" name="id" id="id_delete" required />
-			</form>
-			
-		  <form action="settings_users.php?process=active" method="post">
-			 <div class="modal fade" id="active_modal" tabindex="-1" aria-labelledby="activemodaltitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header bg-transparent">
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body px-sm-5 mx-50 pb-5">
-                                    <div class="col-12 text-center">
-									<h1 class="text-center" id="activemodaltitle">ID: <b id="id_active_show"></b> Are you sure you want to active this account?</h1>
-                                        <button type="submit" class="btn btn-success me-1 mt-1">Active Account</button>
-                                        <button type="reset" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal" aria-label="Close">
-                                            Cancel
-                                        </button>
-                                    </div> 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-				<input type="hidden" name="id" id="id_active" required />
 			</form>			
+			
 			
 <?php
 break;
-
 case "new": 
-$username = str_replace("'", "\'", $_POST['username']);
-$authority = implode(",", $_POST['authority']);
-$active = $_POST['status'];
-$password = hash('sha256', $_POST['password']);
-if($username == ""){
-echo '<meta http-equiv="refresh" content="0;URL=settings_users.php">';
+$users = $_POST['users'];
+$device_name = $_POST['device_name'];
+$brand = $_POST['brand'];
+$model = $_POST['model'];
+$sn = $_POST['sn'];
+$ip = $_POST['ip'];
+$mac = $_POST['mac'];
+$location = $_POST['location'];
+$firmware = $_POST['firmware'];
+$nots = str_replace("'", "\'", $_POST['nots']);
+if($device_name == ""){
+echo '<meta http-equiv="refresh" content="0;URL=wifi.php">';
 }else{
-$last_query = sqlsrv_query($con,"INSERT INTO users (nickname,authority,active,password) values ('$username','$authority','$active','$password') ");
+$last_query = sqlsrv_query($con,"INSERT INTO inventory (users,device_name,brand,model,sn,ip,mac,location,firmware,nots,data_type) values ('".$users."','".$device_name."','".$brand."','".$model."','".$sn."','".$ip."','".$mac."','".$location."','".$firmware."','".$nots."','7')") or die( print_r( sqlsrv_errors(), true));
 sqlsrv_next_result($last_query);
 sqlsrv_fetch($last_query);
 $process_id = sqlsrv_get_field($last_query,0);
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','insert')");
+echo '<meta http-equiv="refresh" content="0;URL=wifi.php?id='.$process_id.'">';
 }
-echo '<meta http-equiv="refresh" content="0;URL=settings_users.php">';
 break;
-
-case "update": 
-$id = $_POST['id'];
-$username = str_replace("'", "\'", $_POST['username']);
-$authority = implode(",", $_POST['authority']);
-$active = $_POST['status'];
-$password = $_POST['password'];
-if($username == ""){
-echo '<meta http-equiv="refresh" content="0;URL=settings_users.php">';
-}else{
-if($password == ""){
-sqlsrv_query($con,"UPDATE users SET nickname='".$username."',authority='".$authority."',active='".$active."' where id='".$id."' ");	
-}
-else{
-$password = hash('sha256', $password);
-sqlsrv_query($con,"UPDATE users SET nickname='".$username."',authority='".$authority."',active='".$active."',password='".$password."' where id='".$id."' ");	
-}
+case "update":
+$id = $_POST["id"];
+$users = $_POST['users'];
+$device_name = $_POST['device_name'];
+$brand = $_POST['brand'];
+$model = $_POST['model'];
+$sn = $_POST['sn'];
+$ip = $_POST['ip'];
+$mac = $_POST['mac'];
+$location = $_POST['location'];
+$firmware = $_POST['firmware'];
+$nots = str_replace("'", "\'", $_POST['nots']);
+sqlsrv_query($con,"UPDATE inventory SET users='".$users."',device_name='".$device_name."',brand='".$brand."',model ='".$model ."',ip='".$ip."',sn='".$sn."',mac='".$mac."',location='".$location."',firmware='".$firmware."',nots='".$nots."' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','update')");
-}
-echo '<meta http-equiv="refresh" content="0;URL=settings_users.php">';
+echo '<meta http-equiv="refresh" content="0;URL=wifi.php">';
 break;
-
 case "delete": 
 $id = $_POST['id'];
-sqlsrv_query($con,'UPDATE users SET active="0" where id="'.$id.'"');
+sqlsrv_query($con,"UPDATE inventory SET hide='1' where id='".$id."' ");
 $process_id = $id;
-sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','passive')");
-echo '<meta http-equiv="refresh" content="0;URL=settings_users.php">';
-break;
-
-case "active": 
-$id = $_POST['id'];
-sqlsrv_query($con,'UPDATE users SET active="1" where id="'.$id.'"');
-$process_id = $id;
-sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','active')");
-echo '<meta http-equiv="refresh" content="0;URL=settings_users.php">';
+sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','delete')");
+echo '<meta http-equiv="refresh" content="0;URL=wifi.php">';
 break;
 }
-	?>
+?>
+            
+                <!-- Dashboard Ecommerce ends -->
 
-                    </div>
-                </div>
-
-            </div>			
-			
-			
-			
-			
+            </div>
         </div>
     </div>
     <!-- END: Content-->
@@ -389,8 +361,6 @@ break;
 
     <!-- BEGIN: Vendor JS-->
     <script src="/app-assets/vendors/js/vendors.min.js"></script>
-	
-    <script src="../../../app-assets/vendors/js/ui/jquery.sticky.js"></script>	
 
     <script src="/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
     <!-- BEGIN Vendor JS-->
@@ -412,10 +382,7 @@ break;
     <script src="../../../app-assets/vendors/js/tables/datatable/buttons.html5.min.js"></script>
     <script src="../../../app-assets/vendors/js/tables/datatable/buttons.print.min.js"></script>
     <script src="../../../app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script>
-	
-	<script src="../../../app-assets/vendors/js/forms/select/select2.full.min.js"></script>
-	<script src="../../../app-assets/js/scripts/forms/form-select2.js"></script>
-	
+
     <script>
         $(window).on('load', function() {
             if (feather) {
@@ -427,28 +394,40 @@ break;
         })
     </script>
 <script>
-	 $(document).ready(function(){
+	 $(document).ready(function(){  
 	      $(document).on('click', '.edit_modal', function(){  
-           var id_data = $(this).attr("id"); 		 
+           var id_data = $(this).attr("id");  
            $.ajax({  
-                url:"class/settings_users_fetch.php",  
+                url:"class/wifi_fetch.php",  
                 method:"POST",  
                 data:{id_data:id_data},  
                 dataType:"json",  
                 success:function(data){  
 					 $('#id').val(data.id);
-                     $('#username').val(data.nickname);  
-					 $('#status').val(data.active);  
-					 var authority_data = data.authority;
-					 authority_split = authority_data.split(',');
-					 $('#authority').val(authority_split);
-					 $('#authority').select2().trigger('change');
-                     $('#edit_modal').modal('show'); 
+                     $('#users').val(data.users);  
+					 $('#device_name').val(data.device_name);
+					  $('#brand').val(data.brand);
+					   $('#model').val(data.model);
+					    $('#ip').val(data.ip);
+						 $('#sn').val(data.sn);
+						  $('#mac').val(data.mac);
+						  $('#location').val(data.location);
+						  $('#firmware').val(data.firmware);
+						  $('#nots').val(data.nots);
+                     $('#edit_modal').modal('show');  
                 }  
            });  
 		 });
-		});
-</script>
+		 
+	  $(document).on('click', '.delete_modal', function(){  
+           var id_data = $(this).attr("id");  
+		   $('#id_delete').val(id_data);
+		   $('#id_delete_show').text(id_data); 
+		   $('#delete_modal').modal('show'); 
+      });
+	  
+	 });  
+	</script>
 <script>
         $(document).ready(function(){
             var dataTable = $('#empTable').DataTable({
@@ -457,32 +436,63 @@ break;
                 'serverMethod': 'post',
 				"pageLength": 25,
                 'ajax': {
-                    'url':'class/settings_users.php',
+                    'url':'class/wifi.php',
                 },
 				'order': [[ 0, "desc" ]],
-				'columns': [
-                    { data: 'id' },
-					{ data: 'username' },
-					{ data: 'authority' },
-					{ data: 'modified' },
-					{ data: 'active' },
+                'columns': [
+					{ data: 'id' },
+					{ data: 'users' },
+					{ data: 'device_name' },
+					{ data: 'brand' },
+					{ data: 'model' },
+					{ data: 'sn' },
+					{ data: 'ip' },
+					{ data: 'mac' },
+					{ data: 'firmware' },
+					{ data: 'location' },
+					{ data: 'nots' },
 					{ data: "id" , render : function ( data, type, row, meta ) {
 				return type === 'display'  ? 
-			  '<div class="d-inline-flex">' +
-              '<a class="pe-1 dropdown-toggle hide-arrow text-primary" data-bs-toggle="dropdown" title="Process">' + feather.icons['more-vertical'].toSvg({ class: 'font-small-4' }) + '</a>' +
-              '<div class="dropdown-menu dropdown-menu-end">' +
-              '<a type="button" id="'+ data +'" class="dropdown-item delete-record delete_modal">' + feather.icons['user-x'].toSvg({ class: 'me-50' }) +
-              'Closed Account</a>' +
-			  '<a type="button" id="'+ data +'" class="dropdown-item delete-record active_modal">' + feather.icons['user-check'].toSvg({ class: 'me-50' }) +
-              'Active Account</a>' +
-              '</div>' +
-              '</div> <a type="button" id="'+ data +'" class="item-edit edit_modal" title="Edit">'+ feather.icons['edit'].toSvg({ class: 'me-50' }) +'</a>' :
+			  '<a type="button" id="'+ data +'" class="delete-record delete_modal">' + feather.icons['trash-2'].toSvg({ class: 'me-50' }) + 
+			  '</a> <a type="button" id="'+ data +'" class="item-edit edit_modal" title="Edit">'+ feather.icons['edit'].toSvg({ class: 'me-50' }) +'</a>' + '<a target="_blank" href="print/wifi.php?id='+ data +'" class="item-edit" title="Print">'+ feather.icons['printer'].toSvg({ class: 'me-50' }) +'</a>' :
                 data;
 				}}
 				],
 				dom: '<"card-header border-bottom p-1"<"head-label"><"dt-action-buttons text-end"B>><"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
 				buttons: [
 			
+        {
+          extend: 'collection',
+          className: 'btn btn-outline-secondary dropdown-toggle me-2',
+          text: feather.icons['share'].toSvg({ class: 'font-small-4 me-50' }) + 'Export',
+          buttons: [
+            {
+              extend: 'print',
+              text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Print',
+              className: 'dropdown-item',
+              exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
+            },
+            {
+              extend: 'excel',
+              text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Excel',
+              className: 'dropdown-item',
+              exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
+            },
+            {
+              extend: 'pdf',
+              text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Pdf',
+              className: 'dropdown-item',
+              exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] }
+            }
+          ],
+          init: function (api, node, config) {
+            $(node).removeClass('btn-secondary');
+            $(node).parent().removeClass('btn-group');
+            setTimeout(function () {
+              $(node).closest('.dt-buttons').removeClass('btn-group').addClass('d-inline-flex');
+            }, 50);
+          }
+        },	
         {
 
           text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Yeni Kayıt',

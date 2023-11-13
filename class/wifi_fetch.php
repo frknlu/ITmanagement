@@ -5,16 +5,20 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 }
 if(isset($_POST["id_data"]))  
  {  
-      $query = "SELECT * FROM inventory WHERE data_type='5' and id='".$_POST["id_data"]."'";
+      $query = "SELECT * FROM inventory WHERE data_type='7' and id='".$_POST["id_data"]."'";
       $result = sqlsrv_query($con, $query);  
 	  while ($row = sqlsrv_fetch_array($result)) {
 		$data = array(
     		"id"=>$row['id'],
     		"users"=>$row['users'],
-    		"number"=>$row['number'],
-			"operator"=>$row['operator'],
-			"type"=>$row['type'],
-			"short_number"=>$row['short_number'],
+    		"device_name"=>$row['device_name'],
+			"brand"=>$row['brand'],
+			"model"=>$row['model'],
+			"sn"=>$row['sn'],
+			"ip"=>$row['ip'],
+			"mac"=>$row['mac'],
+			"location"=>$row['location'],
+			"firmware"=>$row['firmware'],
 			"nots"=>$row['nots']
     	);
 	}

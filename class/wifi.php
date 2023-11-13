@@ -10,7 +10,7 @@ if ( $_SESSION['Oturum'] != 'true' ) {
 ## Read value
 $draw = $_POST['draw'];
 
-$empRecords = sqlsrv_query($con, "select * from inventory WHERE data_type='6' and hide='0'");
+$empRecords = sqlsrv_query($con, "select * from inventory WHERE data_type='7' and hide='0'");
 $data = array();
 
 while ($row = sqlsrv_fetch_array($empRecords)) {
@@ -31,8 +31,7 @@ while ($row = sqlsrv_fetch_array($empRecords)) {
 			"ip"=>'<a href="https://'.$row['ip'].'" target="_blank" >'.$row['ip'].'</a>',
 			"mac"=>$row['mac'],
 			"location"=>$row['location'],
-			"toner"=>$row['toner'],
-			"toner_q"=>$row['toner_q'],
+			"firmware"=>$row['firmware'],
 			"nots"=>$row['nots']
     	);
 

@@ -283,7 +283,7 @@ $nots = str_replace("'", "\'", $_POST['nots']);
 if($number == ""){
 echo '<meta http-equiv="refresh" content="0;URL=sim.php">';
 }else{
-$last_query = sqlsrv_query($con,"INSERT INTO sim (users,number,type,short_number,operator,nots) values ('".$users."','".$number."','".$type."','".$short_number."','".$operator."','".$nots."')") or die( print_r( sqlsrv_errors(), true));
+$last_query = sqlsrv_query($con,"INSERT INTO inventory (users,number,type,short_number,operator,nots,data_type) values ('".$users."','".$number."','".$type."','".$short_number."','".$operator."','".$nots."','5')") or die( print_r( sqlsrv_errors(), true));
 sqlsrv_next_result($last_query);
 sqlsrv_fetch($last_query);
 $process_id = sqlsrv_get_field($last_query,0);
@@ -299,14 +299,14 @@ $type = $_POST['type'];
 $short_number = $_POST['short_number'];
 $operator = $_POST['operator'];
 $nots = str_replace("'", "\'", $_POST['nots']);
-sqlsrv_query($con,"UPDATE sim SET users='".$users."',number='".$number."',type='".$type."',short_number='".$short_number."',operator='".$operator."',nots='".$nots."' where id='".$id."' ");
+sqlsrv_query($con,"UPDATE inventory SET users='".$users."',number='".$number."',type='".$type."',short_number='".$short_number."',operator='".$operator."',nots='".$nots."' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','update')");
 echo '<meta http-equiv="refresh" content="0;URL=sim.php">';
 break;
 case "delete": 
 $id = $_POST['id'];
-sqlsrv_query($con,"UPDATE sim SET hide='1' where id='".$id."' ");
+sqlsrv_query($con,"UPDATE inventory SET hide='1' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','delete')");
 echo '<meta http-equiv="refresh" content="0;URL=sim.php">';

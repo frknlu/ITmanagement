@@ -167,8 +167,8 @@ case "":
 											<label class="form-label" for="Mac">MAC</label>
 											<input type="text" id="Mac" class="form-control" name="mac" placeholder="MAC"/>
 											
-											<label class="form-label" for="Place">Yeri</label>
-											<input type="text" id="Place" class="form-control" name="place" placeholder="Yeri"/>
+											<label class="form-label" for="Location">Yeri</label>
+											<input type="text" id="Location" class="form-control" name="location" placeholder="Yeri"/>
 
 											<label class="form-label" for="Toner">Toner Modeli</label>
 											<input type="text" id="Toner" class="form-control" name="toner" placeholder="Toner Modeli"/>
@@ -245,8 +245,8 @@ case "":
 											<label class="form-label" for="Mac">MAC</label>
 											<input type="text" id="mac" class="form-control" name="mac" placeholder="MAC"/>
 											
-											<label class="form-label" for="Place">Yeri</label>
-											<input type="text" id="place" class="form-control" name="place" placeholder="Yeri"/>
+											<label class="form-label" for="location">Yeri</label>
+											<input type="text" id="location" class="form-control" name="location" placeholder="Yeri"/>
 
 											<label class="form-label" for="Toner">Toner Modeli</label>
 											<input type="text" id="toner" class="form-control" name="toner" placeholder="Toner Modeli"/>
@@ -309,14 +309,14 @@ $model = $_POST['model'];
 $sn = $_POST['sn'];
 $ip = $_POST['ip'];
 $mac = $_POST['mac'];
-$place = $_POST['place'];
+$location = $_POST['location'];
 $toner = $_POST['toner'];
 $toner_q = $_POST['toner_q'];
 $nots = str_replace("'", "\'", $_POST['nots']);
 if($device_name == ""){
 echo '<meta http-equiv="refresh" content="0;URL=printer.php">';
 }else{
-$last_query = sqlsrv_query($con,"INSERT INTO printers (users,device_name,brand,model,sn,ip,mac,place,toner,toner_q,nots) values ('".$users."','".$device_name."','".$brand."','".$model."','".$sn."','".$ip."','".$mac."','".$place."','".$toner."','".$toner_q."','".$nots."')") or die( print_r( sqlsrv_errors(), true));
+$last_query = sqlsrv_query($con,"INSERT INTO inventory (users,device_name,brand,model,sn,ip,mac,location,toner,toner_q,nots,data_type) values ('".$users."','".$device_name."','".$brand."','".$model."','".$sn."','".$ip."','".$mac."','".$location."','".$toner."','".$toner_q."','".$nots."','6')") or die( print_r( sqlsrv_errors(), true));
 sqlsrv_next_result($last_query);
 sqlsrv_fetch($last_query);
 $process_id = sqlsrv_get_field($last_query,0);
@@ -333,18 +333,18 @@ $model = $_POST['model'];
 $sn = $_POST['sn'];
 $ip = $_POST['ip'];
 $mac = $_POST['mac'];
-$place = $_POST['place'];
+$location = $_POST['location'];
 $toner = $_POST['toner'];
 $toner_q = $_POST['toner_q'];
 $nots = str_replace("'", "\'", $_POST['nots']);
-sqlsrv_query($con,"UPDATE printers SET users='".$users."',device_name='".$device_name."',brand='".$brand."',model ='".$model ."',ip='".$ip."',sn='".$sn."',mac='".$mac."',place='".$place."',toner='".$toner."',toner_q='".$toner_q."',nots='".$nots."' where id='".$id."' ");
+sqlsrv_query($con,"UPDATE inventory SET users='".$users."',device_name='".$device_name."',brand='".$brand."',model ='".$model ."',ip='".$ip."',sn='".$sn."',mac='".$mac."',location='".$location."',toner='".$toner."',toner_q='".$toner_q."',nots='".$nots."' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','update')");
 echo '<meta http-equiv="refresh" content="0;URL=printer.php">';
 break;
 case "delete": 
 $id = $_POST['id'];
-sqlsrv_query($con,"UPDATE printers SET hide='1' where id='".$id."' ");
+sqlsrv_query($con,"UPDATE inventory SET hide='1' where id='".$id."' ");
 $process_id = $id;
 sqlsrv_query($con,"INSERT INTO logs (user_id,module,process_id,process) values ('".$_SESSION['UserID']."','".$_SERVER['REQUEST_URI']."','".$process_id."','delete')");
 echo '<meta http-equiv="refresh" content="0;URL=printer.php">';
@@ -421,7 +421,7 @@ break;
 					    $('#ip').val(data.ip);
 						 $('#sn').val(data.sn);
 						  $('#mac').val(data.mac);
-						  $('#place').val(data.place);
+						  $('#location').val(data.location);
 						  $('#toner').val(data.toner);
 						  $('#toner_q').val(data.toner_q);
 						  $('#nots').val(data.nots);
@@ -459,7 +459,7 @@ break;
 					{ data: 'sn' },
 					{ data: 'ip' },
 					{ data: 'mac' },
-					{ data: 'place' },					
+					{ data: 'location' },					
 					{ data: 'toner' },
 					{ data: 'toner_q' },
 					{ data: 'nots' },

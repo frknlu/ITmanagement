@@ -27,7 +27,7 @@ if ( $_SESSION['Oturum'] == 'true' ) {
 <div class="form">
     <!--login form start-->
     <form class="login-form" action="login_auth.php" method="post">
-      <img src="logo.png"  style="height: 150px;"/>
+      <img src="app-assets/images/danet.png"  style="height: 150px;"/>
 	   <div class="options-02" style="margin-top: 10px;margin-bottom: 20px;font-size: 19px;font-weight: bold;color: red;"> <?php echo @$_GET["msg"]; ?></div>
       <input class="user-input" type="text" name="nickname" value="" placeholder="Kullanıcı Kodu" required autocomplete>
       <input class="user-input" type="password" name="pass" placeholder="Şifre" required autocomplete>
