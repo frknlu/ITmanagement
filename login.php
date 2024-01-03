@@ -100,7 +100,7 @@ select#bolge option[value="DANET"] { background-image:url(app-assets/images/dane
 								
 									<div class="mb-1">
 									<label for="login-email" class="form-label">Bölge</label>                                   
-									<select class="form-select" id="bolge" name="bolge">
+									<select class="form-select" id="location" name="location">
 									  <option value="DANET">DANET</option>
 									  <option value="VAHDET">VAHDET</option>
 									</select> 

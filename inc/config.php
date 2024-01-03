@@ -10,7 +10,15 @@ if ($con) {
 }else{
  echo "Connection Failed! <hr>";
  die(print_r(sqlsrv_errors(), true));
-}*/
+}
+$serverName = "DESKTOP-QPTEL22\SQLEXPRESS";
+if($_COOKIE["location"] == "VAHDET"){
+$connectionInfo = array( "Database"=>"vahdet_it"); 
+}else{
+$connectionInfo = array( "Database"=>"danet_it"); 
+}
+$con = sqlsrv_connect($serverName, $connectionInfo);
+*/
 
 
    function seo($s) {

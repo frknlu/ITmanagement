@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="css/flipbook.style.css">
+<link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+<script src="js/flipbook.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#container").flipBook({
+            pdfUrl:"1.pdf",
+			 currentPage: { enabled: true, title: "Şimdiki Sayfa" },
+                btnNext: { enabled: true, title: "Sonraki Sayfa", icon: "fa-chevron-right" },
+                btnPrev: { enabled: true, title: "Önceki Sayfa", icon: "fa-chevron-left" },
+                btnZoomIn: { enabled: true, title: "Yaklaş", icon: "fa-plus" },
+                btnZoomOut: { enabled: true, title: "Uzaklaş", icon: "fa-minus" },
+                btnToc: { enabled: false, title: "İçindekiler", icon: "fa-list-ol" },
+                btnThumbs: { enabled: true, title: "Sayfalar", icon: "fa-th-large" },
+                btnShare: { enabled: true, title: "Paylaş", icon: "fa-link" },
+				btnSelect: { enabled: false },
+                btnDownloadPages: { enabled: false },
+                btnDownloadPdf: { enabled: false },
+				btnBookmark: { enabled: false },
+                btnExpand: { enabled: true, title: "Tam Ekran", icon: "fa-expand" },
+				btnPrint: { enabled: false },
+				backgroundPattern:"images/patterns/woven.png",
+				background:'url("images/patterns/woven.png")',
+				skin:'dark'
+        });
+
+    })
+</script>
+</head>
+
+<body>
+
+<div id="container">
+    <p> </p>
+    <img src="1.jpg" />
+</div>
+
+</body>
+</html>

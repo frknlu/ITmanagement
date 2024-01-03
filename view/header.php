@@ -30,12 +30,6 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
 					
-                       
-						
-						<a class="dropdown-item" href="settings_users.php"><i class="me-50" data-feather="settings"></i> Settings</a>
-						
-						 <div class="dropdown-divider"></div>
-						
 						<a class="dropdown-item" href="logout.php"><i class="me-50" data-feather="power"></i> Logout</a>
                     </div>
                 </li>

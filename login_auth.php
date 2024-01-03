@@ -5,6 +5,7 @@ session_start();
 
 $User = $_POST['nickname'];
 $Pass = hash('sha256', $_POST['pass']);
+$Location = $_POST['location'];
  
 $CheckUser_query = sqlsrv_query($con,"SELECT * FROM users WHERE nickname='{$User}' and password='{$Pass}' ");
 $CheckUser = sqlsrv_fetch_array($CheckUser_query);
@@ -17,6 +18,7 @@ if ( $CheckUser ) {
 	$_SESSION['UserID'] = $CheckUser['id'];
 	setcookie("authority", $CheckUser['authority'], time()+604801);
 	setcookie("darkmode", $CheckUser['darkmode'], time()+(24*60*60));
+	setcookie("location", $Location, time()+604801);
 	
 if ( isset($_POST['remember-me']) ) {
 $UserID = $CheckUser['id']; // Kullanıcının id'si.

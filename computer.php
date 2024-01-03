@@ -56,9 +56,16 @@ $authority_page = explode(',', $_COOKIE["authority"]);
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/buttons.bootstrap5.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/rowGroup.bootstrap5.min.css">
+	<link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/tables/datatable/select.dataTables.min.css">
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/css/base/jquery-ui.min.css" integrity="sha512-OIJ+9bQE2puZceOJT8hER4vfFzYJoE4iOJAAvgq1ts24d9FNiEm/AbiIVFGSrCXFdB0u+Vi8CJ0gVoZYddnwBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />     
-
+<style>
+table.dataTable tbody tr.selected {
+    color: white !important;
+    background-color: #000000 !important;
+	--bs-table-accent-bg: #000000 !important;
+}
+</style>
 	
 </head>
 <!-- END: Head-->
@@ -461,6 +468,7 @@ break;
     <script src="../../../app-assets/vendors/js/tables/datatable/buttons.html5.min.js"></script>
     <script src="../../../app-assets/vendors/js/tables/datatable/buttons.print.min.js"></script>
     <script src="../../../app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js"></script>
+	<script src="../../../app-assets/vendors/js/tables/datatable/dataTables.select.min.js"></script>
 
     <script>
         $(window).on('load', function() {
@@ -559,22 +567,40 @@ break;
           buttons: [
             {
               extend: 'print',
-              text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Print',
+              text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Selected Print',
               className: 'dropdown-item',
               exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
             },
             {
               extend: 'excel',
-              text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Excel',
+              text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Selected Excel',
               className: 'dropdown-item',
               exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
             },
             {
               extend: 'pdf',
-              text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Pdf',
+              text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Selected Pdf',
               className: 'dropdown-item',
               exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] }
-            }
+            },
+            {
+              extend: 'print',
+              text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'All Print',
+              className: 'dropdown-item',
+              exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], modifier: { selected: null } }
+            },
+            {
+              extend: 'excel',
+              text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'All Excel',
+              className: 'dropdown-item',
+              exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], modifier: { selected: null } }
+            },
+            {
+              extend: 'pdf',
+              text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'All Pdf',
+              className: 'dropdown-item',
+              exportOptions: { columns: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], modifier: { selected: null } }
+            }	
           ],
           init: function (api, node, config) {
             $(node).removeClass('btn-secondary');
@@ -607,7 +633,8 @@ break;
 
         },
 
-      ]	
+      ],
+	  select: true
   
 	  
             });

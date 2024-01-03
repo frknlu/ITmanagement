@@ -9,6 +9,7 @@ unset($_SESSION['userData']);
 unset($_SESSION['Oturum']);
 setcookie("RMB", 'false', time() -3600,'/');
 setcookie("authority", 'false', time() -3600,'/');
+setcookie("location", 'false', time() -3600,'/');
 session_destroy();
 header("Refresh: 0; url=login.php");
 ob_end_flush();

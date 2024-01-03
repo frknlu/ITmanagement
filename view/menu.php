@@ -39,14 +39,29 @@
 						<a class="d-flex align-items-center" href="index.php"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Anasayfa">Anasayfa</span></a>
 						</li>
 						
-						<li class=" navigation-header"><span data-i18n="Kullanıcı Yönetimi">Kullanıcı Yönetimi</span><i data-feather="more-horizontal"></i>
+						<li class=" navigation-header"><span data-i18n="Tanımlar">Tanımlar</span><i data-feather="more-horizontal"></i>
 						</li>
-						
-						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "employee")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="employee.php"><i data-feather="users"></i><span class="menu-item text-truncate" data-i18n="Kullanıcılar">Kullanıcı</span></a>
-                        </li>
-						
-						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "department")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="department.php"><i data-feather="menu"></i><span class="menu-item text-truncate" data-i18n="Departman">Departman</span></a>
-                        </li>
+
+						<li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="menu"></i><span class="menu-title text-truncate" data-i18n="Tanımlar">Tanımlar</span></a>
+							<ul class="menu-content">
+								
+									<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "employee")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="employee.php"><i data-feather="users"></i><span class="menu-item text-truncate" data-i18n="Kullanıcılar">Kullanıcı</span></a>
+									</li>
+									
+									<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "department")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="department.php"><i data-feather="grid"></i><span class="menu-item text-truncate" data-i18n="Departman">Departman</span></a>
+									</li>
+
+									<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "charges")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="charges.php"><i data-feather="edit"></i><span class="menu-item text-truncate" data-i18n="Zimmet Şablon">Zimmet Şablon</span></a>
+									</li>
+									
+									<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "settings_users")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="settings_users.php"><i data-feather="settings"></i><span class="menu-item text-truncate" data-i18n="Admin Ayarları">Admin Ayarları</span></a>
+									</li>								
+									
+									<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "log")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="log.php"><i data-feather="terminal"></i><span class="menu-item text-truncate" data-i18n="Log">Log</span></a>
+									</li>		
+									
+							</ul>
+						</li>
 				
 						<li class=" navigation-header"><span data-i18n="Envanter Yönetimi">Envanter Yönetimi</span><i data-feather="more-horizontal"></i>
 						</li>
@@ -75,11 +90,9 @@
 						<li class=" navigation-header"><span data-i18n="Rapor">Rapor</span><i data-feather="more-horizontal"></i>
 						</li>						
 
-						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "zimmet")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="zimmet.php"><i data-feather="edit-3"></i><span class="menu-item text-truncate" data-i18n="Wireless">Zimmet Raporu</span></a>
+						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "rcharge")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="rcharge.php"><i data-feather="edit-3"></i><span class="menu-item text-truncate" data-i18n="Wireless">Zimmet Raporu</span></a>
                         </li>						
-
-						<li class="<?php if(strstr($_SERVER['REQUEST_URI'], "log")) { echo "active"; } ?>  nav-item"><a class="d-flex align-items-center" href="log.php"><i data-feather="terminal"></i><span class="menu-item text-truncate" data-i18n="Log">Log</span></a>
-                        </li>							
+				
               
             </ul>
         </div>
